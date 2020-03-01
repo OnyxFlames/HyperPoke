@@ -159,7 +159,7 @@ bool ROMViewer::writeMonsterStats(size_t index, const MonsterBaseStats& stats)
 const std::wstring ROMViewer::readTypeName(size_t index)
 {
 	if (index > TYPE_COUNT || mType == RomType::UNKNOWN_ROM)
-		return false;
+		return L"";
 
 	OffsetTable table(mType);
 	const auto offset = table.getTypeNameOffset();
