@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\imgui">
+      <UniqueIdentifier>{1774cc8d-dbc3-4557-a2e2-be6976466270}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\state">
+      <UniqueIdentifier>{329e7d5b-2d89-4456-bfdc-cebeddb0aff2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\state">
+      <UniqueIdentifier>{a5f2f2d5-cb5a-408b-9caa-7763ff486d66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\monster">
+      <UniqueIdentifier>{d58c02ec-2b87-4cb5-a1fa-98139a423003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\monster">
+      <UniqueIdentifier>{ab0dab9f-9921-4803-9c73-62ca8ec6564a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lua">
+      <UniqueIdentifier>{d0df08d7-db02-4c5e-b06e-9bbfdea5e109}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sol">
+      <UniqueIdentifier>{b63a24f2-f2c4-46c6-935d-d1d8bbde9a8e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui-SFML.cpp">
+      <Filter>Header Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ROM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OffsetTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RomType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FilePrompt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\Monster.cpp">
+      <Filter>Source Files\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\MonsterBaseStats.cpp">
+      <Filter>Source Files\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\MonsterEvolutionData.cpp">
+      <Filter>Source Files\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\MonsterMoveData.cpp">
+      <Filter>Source Files\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="state\MenuState.cpp">
+      <Filter>Source Files\state</Filter>
+    </ClCompile>
+    <ClCompile Include="state\MonsterEditorState.cpp">
+      <Filter>Source Files\state</Filter>
+    </ClCompile>
+    <ClCompile Include="state\State.cpp">
+      <Filter>Source Files\state</Filter>
+    </ClCompile>
+    <ClCompile Include="state\StateStack.cpp">
+      <Filter>Source Files\state</Filter>
+    </ClCompile>
+    <ClCompile Include="state\TextConverterState.cpp">
+      <Filter>Source Files\state</Filter>
+    </ClCompile>
+    <ClCompile Include="state\TextFinderState.cpp">
+      <Filter>Source Files\state</Filter>
+    </ClCompile>
+    <ClCompile Include="ROMViewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\MonsterType.cpp">
+      <Filter>Source Files\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="LZ77.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="imgui\imconfig.h">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imconfig-SFML.h">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui.h">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_internal.h">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui-SFML.h">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui-SFML_export.h">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_rectpack.h">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_textedit.h">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ROM.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OffsetTable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RomType.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FilePrompt.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextConversionTable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\Monster.hpp">
+      <Filter>Header Files\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\MonsterBaseStats.hpp">
+      <Filter>Header Files\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\MonsterEvolutionData.hpp">
+      <Filter>Header Files\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\MonsterMoveData.hpp">
+      <Filter>Header Files\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="state\MenuState.hpp">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="state\MonsterEditorState.hpp">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="state\State.hpp">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="state\StateIdentifiers.hpp">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="state\StateStack.hpp">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="state\TextConverterState.hpp">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="state\AllStates.hpp">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="state\TextFinderState.hpp">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="ROMViewer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\MonsterType.hpp">
+      <Filter>Header Files\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="LZ77.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
