@@ -181,6 +181,7 @@ bool ROMViewer::writeTypeName(size_t index, const std::wstring& name)
 
 	if (bytes.size() < TYPE_NAME_LENGTH)
 		data[TYPE_INDEX + bytes.size()] = 0xff;
+
 	for (size_t i = 0; i < bytes.size(); ++i)
 		data[TYPE_INDEX + i] = bytes[i];
 

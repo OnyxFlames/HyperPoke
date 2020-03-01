@@ -9,6 +9,7 @@
 class MonsterType
 {
 public:
+	// Classic types, modded ROMs arent guaranteed to follow this
 	enum class Type
 	{
 		Normal,

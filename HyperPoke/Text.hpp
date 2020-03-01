@@ -8,17 +8,21 @@
 
 #include "TextConversionTable.hpp"
 
+/*
+	ROM text encoding/decoding using T as a backend type for conversions
+*/
+
 template<typename T>
 class Text
 {
 public:
-	static std::vector<uint8_t> encode(const T& str);
+	static std::vector<uint8_t> encode(const T& str, const size_t buffer_limit = 3);
 	static T decode(uint8_t* data);
 	static T decode(uint8_t* data, size_t amount);
 };
 
 template<typename T>
-std::vector<uint8_t> Text<T>::encode(const T& str)
+std::vector<uint8_t> Text<T>::encode(const T& str, const size_t buffer_limit)
 {
 	T buff;
 	std::vector<uint8_t> text;
@@ -34,7 +38,7 @@ std::vector<uint8_t> Text<T>::encode(const T& str)
 			text.push_back(EncodeTable.find(buff)->second);
 			buff = T();
 		}
-		else if (buff.size() >= 3)
+		else if (buff.size() >= buffer_limit)
 			buff = T();
 
 	}
