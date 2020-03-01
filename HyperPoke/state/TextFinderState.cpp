@@ -2,6 +2,8 @@
 
 #include "../Common.hpp"
 
+#include "../GUI.hpp"
+
 TextFinderState::TextFinderState(StateStack& stack, Context context)
 	:	State(stack, context)
 	,	mGUI(*context.window)
@@ -36,7 +38,20 @@ bool TextFinderState::handleEvent(const sf::Event& event)
 
 void TextFinderState::buildGUI()
 {
+	const auto bounds = getContext().window->getSize();
 
+
+
+
+	auto return_btn = tgui::Button::create("Menu");
+	return_btn->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+	return_btn->setPosition(0.f, bounds.y - BUTTON_HEIGHT);
+	return_btn->connect("pressed",
+		[this]()
+		{
+			requestStackPop();
+		});
+	mGUI.add(return_btn);
 }
 
 void TextFinderState::checkButtonAvailablity()
