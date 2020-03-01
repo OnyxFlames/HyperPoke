@@ -222,6 +222,7 @@ void MonsterEditorState::buildGUI()
 		[this, &rom, &data]()
 		{
 			ROMViewer rv(rom);
+			rv.writeTypeName(0, L"GAY");
 			// Name
 			if (mMonsterName->getText() != mMonsterList->getSelectedItem()
 				&& rv.writeMonsterName(mSelectedIndex, mMonsterName->getText()))
