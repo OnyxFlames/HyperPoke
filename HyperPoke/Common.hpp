@@ -12,7 +12,7 @@
 
 #define MONSTER_BASESTAT_LENGTH 28
 
-#define TYPE_COUNT 7
-#define TYPE_NAME_LENGTH 6
+#define TYPE_COUNT 18
+#define TYPE_NAME_LENGTH 7
 
 #define BACKGROUND_COLOR sf::Color(186, 186, 186)

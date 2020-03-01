@@ -1,6 +1,10 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include "../Common.hpp"
+
+#include "../ROM.hpp"
 
 class MonsterType
 {
@@ -31,6 +35,8 @@ public:
 	};
 private:
 
+public:
+	static std::vector<std::wstring> load(ROM& rom);
 };
 
 std::string to_string(MonsterType::Type type);

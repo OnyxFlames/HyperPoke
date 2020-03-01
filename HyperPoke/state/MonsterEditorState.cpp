@@ -143,10 +143,11 @@ void MonsterEditorState::buildGUI()
 
 	auto type1_list = tgui::ComboBox::create();
 	type1_list->setPosition(monstername->getPosition().x, mBaseStats.back()->getPosition().y + TYPE_OFFSETY);
-	type1_list->setSize(75.f, DROPDOWN_HEIGHT);
+	type1_list->setSize(80.f, DROPDOWN_HEIGHT);
 
-	for (size_t i = 0; i < static_cast<size_t>(MonsterType::Type::TypeCount); ++i)
-		type1_list->addItem(to_string(static_cast<MonsterType::Type>(i)));
+	for (size_t i = 0; i < TYPE_COUNT; ++i)
+		type1_list->addItem(rv.readTypeName(i));
+
 	mType1 = type1_list;
 	mGUI.add(type1_list);
 
@@ -156,10 +157,11 @@ void MonsterEditorState::buildGUI()
 
 	auto type2_list = tgui::ComboBox::create();
 	type2_list->setPosition(monstername->getPosition().x, mBaseStats.back()->getPosition().y + TYPE_OFFSETY + mType1->getSize().y);
-	type2_list->setSize(75.f, DROPDOWN_HEIGHT);
+	type2_list->setSize(80.f, DROPDOWN_HEIGHT);
 
-	for (size_t i = 0; i < static_cast<size_t>(MonsterType::Type::TypeCount); ++i)
-		type2_list->addItem(to_string(static_cast<MonsterType::Type>(i)));
+	for (size_t i = 0; i < TYPE_COUNT; ++i)
+		type2_list->addItem(rv.readTypeName(i));
+
 	mType2 = type2_list;
 	mGUI.add(type2_list);
 

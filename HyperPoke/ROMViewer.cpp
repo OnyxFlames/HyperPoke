@@ -23,7 +23,7 @@ const std::wstring ROMViewer::readMonsterName(size_t index)
 	return name;
 }
 
-bool ROMViewer::writeMonsterName(size_t index, const std::wstring name)
+bool ROMViewer::writeMonsterName(size_t index, const std::wstring& name)
 {
 	if (mType == RomType::UNKNOWN_ROM || index > MONSTER_COUNT)
 		return false;
@@ -64,7 +64,7 @@ const std::wstring ROMViewer::readMoveName(size_t index)
 	return name;
 }
 
-bool ROMViewer::writeMoveName(size_t index, const std::wstring name)
+bool ROMViewer::writeMoveName(size_t index, const std::wstring& name)
 {
 	if (mType == RomType::UNKNOWN_ROM || index >= MOVE_COUNT)
 		return false;
@@ -154,4 +154,17 @@ bool ROMViewer::writeMonsterStats(size_t index, const MonsterBaseStats& stats)
 	data[27] = (stats.padding_0 >> 8) & 0xFF;
 
 	return true;
+}
+
+const std::wstring ROMViewer::readTypeName(size_t index)
+{
+	OffsetTable table(mType);
+	const auto offset = table.getTypeNameOffset();
+	auto data = mROM.data.data();
+	return Text<std::wstring>::decode(&data[index * TYPE_NAME_LENGTH + offset], TYPE_NAME_LENGTH);
+}
+
+bool ROMViewer::writeTypeName(size_t index, const std::wstring& name)
+{
+	return false;
 }

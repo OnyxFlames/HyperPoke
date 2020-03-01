@@ -1,5 +1,7 @@
 #include "MonsterType.hpp"
 
+#include "../Text.hpp"
+
 // Note: Un-hardcode this when you can custom load type values
 
 std::string to_string(MonsterType::Type type)
@@ -26,4 +28,19 @@ std::string to_string(MonsterType::Type type)
 	case MonsterType::Type::Dark: return "Dark";
 	default: return "ErrorMonsterType";
 	}
+}
+
+std::vector<std::wstring> MonsterType::load(ROM& rom)
+{
+	std::vector<std::wstring> names;
+
+	OffsetTable table(rom.getType());
+	const auto offset = table.getTypeNameOffset();
+	auto data = rom.data.data();
+
+	for (size_t i = 0; i <= TYPE_COUNT; ++i)
+	{
+		names.push_back(Text<std::wstring>::decode(data + offset + (i * TYPE_NAME_LENGTH)));
+	}
+	return names;
 }
