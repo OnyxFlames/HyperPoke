@@ -114,8 +114,11 @@
     <ClCompile Include="LZ77.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterItem.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="monster\MonsterGender.cpp">
+      <Filter>Source Files\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\MonsterItem.cpp">
+      <Filter>Source Files\monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,8 +224,11 @@
     <ClInclude Include="LZ77.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterItem.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="monster\MonsterGender.hpp">
+      <Filter>Header Files\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\MonsterItem.hpp">
+      <Filter>Header Files\monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
