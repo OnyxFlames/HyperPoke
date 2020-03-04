@@ -139,9 +139,10 @@ bool ROMViewer::writeMonsterStats(size_t index, const MonsterBaseStats& stats)
 
 	data[14] = stats.item2 & 0xFF;
 	data[15] = (stats.item2 >> 8) & 0xFF;
-	return true;
 
 	data[16] = stats.gender;
+	return true;
+
 	data[17] = stats.egg_cycles;
 	data[18] = stats.base_friendship;
 	data[19] = stats.levelup_type;

@@ -4,7 +4,8 @@
 
 #include "MonsterBaseStats.hpp"
 #include "MonsterMoveData.hpp"
-
+#include "MonsterItem.hpp"
+#include "MonsterGender.hpp"
 #include <array>
 
 class Monster

@@ -30,6 +30,8 @@ private:
 	tgui::EditBox::Ptr mCatchRate;
 	tgui::EditBox::Ptr mExpYield;
 	tgui::ComboBox::Ptr mItem1, mItem2;
+	tgui::ComboBox::Ptr mGender;
+	tgui::EditBox::Ptr mGenderRatio;
 
 	sf::RectangleShape mBackground;
 };

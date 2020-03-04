@@ -2,8 +2,9 @@
 
 #include "TGUI/TGUI.hpp"
 #include "MonsterEditorState.hpp"
-#include "../monster/MonsterBaseStats.hpp"
-#include "../monster/MonsterType.hpp"
+
+#include "../monster/Monster.hpp"
+
 #include "../Text.hpp"
 #include "../GUI.hpp"
 
@@ -66,6 +67,18 @@ void MonsterEditorState::updateGUIValues()
 
 	mItem1->setSelectedItemByIndex(basestats.item1);
 	mItem2->setSelectedItemByIndex(basestats.item2);
+
+	mGender->setSelectedItemByIndex(decodeGender(basestats.gender));
+	if (decodeGender(basestats.gender) == MonsterGender::MixedGender)
+	{
+		mGenderRatio->setEnabled(true);
+		mGenderRatio->setText(std::to_string(basestats.gender));
+	}
+	else
+	{
+		mGenderRatio->setEnabled(false);
+		mGenderRatio->setText(std::to_string(basestats.gender));
+	}
 
 	mPrevSelectedIndex = mSelectedIndex;
 }
@@ -240,6 +253,37 @@ void MonsterEditorState::buildGUI()
 	mItem2 = item2drp;
 	mGUI.add(item2drp);
 
+	auto lblgender = tgui::Label::create("Gender:");
+	lblgender->setPosition(item2lbl->getPosition().x, item2lbl->getPosition().y + (item2lbl->getSize().y * 2.f));
+
+	mGUI.add(lblgender);
+
+	auto cbogender = tgui::ComboBox::create();
+	cbogender->setPosition(
+		lblgender->getPosition().x + lblgender->getSize().x,
+		lblgender->getPosition().y);
+	cbogender->setSize(80.f, 18.f);
+	cbogender->connect("itemselected",
+		[this]()
+		{
+			if (mGender->getSelectedItemIndex() == MonsterGender::MixedGender)
+				mGenderRatio->setEnabled(true);
+			else
+				mGenderRatio->setEnabled(false);
+		});
+	for (size_t i = 0; i < MonsterGender::GenderCount; ++i)
+		cbogender->addItem(to_string(static_cast<MonsterGender>(i)));
+	mGender = cbogender;
+	mGUI.add(cbogender);
+
+	auto txtgender = tgui::EditBox::create();
+	txtgender->setPosition(
+		cbogender->getPosition().x + cbogender->getSize().x + 4.f,
+		cbogender->getPosition().y);
+	txtgender->setSize(36.f, 18.f);
+	mGenderRatio = txtgender;
+	mGUI.add(txtgender);
+
 	auto return_btn = tgui::Button::create("Menu");
 	return_btn->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	return_btn->setPosition(0.f, window.getSize().y - return_btn->getSize().y);
@@ -295,6 +339,14 @@ void MonsterEditorState::buildGUI()
 
 			stats.item1 = indexAs(mItem1, uint16_t);
 			stats.item2 = indexAs(mItem2, uint16_t);
+
+			switch (decodeGender(indexOf(mGender)))
+			{
+			case MonsterGender::MixedGender: stats.gender = valueOf(mGenderRatio); break;
+			case MonsterGender::AlwaysMale: stats.gender = 0; break;
+			case MonsterGender::AlwaysFemale: stats.gender = 254; break;
+			case MonsterGender::Genderless: stats.gender = 255; break;
+			}
 
 			if (rv.writeMonsterStats(mSelectedIndex, stats))
 				updateGUIValues();
