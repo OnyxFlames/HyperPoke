@@ -16,5 +16,6 @@ public:
 	uint32_t getMoveDataOffset();
 	uint32_t getMoveNameOffset();
 	uint32_t getTypeNameOffset();
+	uint32_t getItemOffset();
 };
 

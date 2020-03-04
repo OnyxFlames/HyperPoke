@@ -35,6 +35,10 @@ public:
 
 			uint16_t padding_0 : 2;
 		};
+		EffortYield() { }
+		EffortYield(uint16_t y)
+			:	total(y)
+		{ }
 	} effort_yield;
 
 	uint16_t item1;
@@ -52,6 +56,7 @@ public:
 	uint16_t padding_0;
 
 public:
+	MonsterBaseStats();
 	MonsterBaseStats(const uint8_t* data);
 
 	static std::vector<MonsterBaseStats> load(ROM& rom);

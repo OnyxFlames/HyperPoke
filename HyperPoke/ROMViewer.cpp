@@ -96,6 +96,8 @@ const MonsterBaseStats ROMViewer::readMonsterStats(size_t index)
 
 	OffsetTable table(mType);
 	const auto offset = table.getBaseStatOffset();
+	if (offset == 0)
+		return MonsterBaseStats();
 
 	MonsterBaseStats mStats(&mROM.data[STAT_INDEX]);
 
@@ -111,6 +113,7 @@ bool ROMViewer::writeMonsterStats(size_t index, const MonsterBaseStats& stats)
 
 	OffsetTable table(mType);
 	const auto offset = table.getBaseStatOffset();
+	if (offset == 0) return false;
 
 	auto data = mROM.data.data() + STAT_INDEX;
 
@@ -131,13 +134,12 @@ bool ROMViewer::writeMonsterStats(size_t index, const MonsterBaseStats& stats)
 	data[10] = stats.effort_yield.total & 0xFF;
 	data[11] = (stats.effort_yield.total >> 8) & 0xFF;
 
-	return true;
-
 	data[12] = stats.item1 & 0xFF;
 	data[13] = (stats.item1 >> 8) & 0xFF;
 
 	data[14] = stats.item2 & 0xFF;
 	data[15] = (stats.item2 >> 8) & 0xFF;
+	return true;
 
 	data[16] = stats.gender;
 	data[17] = stats.egg_cycles;
@@ -163,6 +165,7 @@ const std::wstring ROMViewer::readTypeName(size_t index)
 
 	OffsetTable table(mType);
 	const auto offset = table.getTypeNameOffset();
+	if (offset == 0) return std::wstring();
 	auto data = mROM.data.data();
 	return Text<std::wstring>::decode(&data[index * TYPE_NAME_LENGTH + offset], TYPE_NAME_LENGTH);
 }
@@ -177,6 +180,7 @@ bool ROMViewer::writeTypeName(size_t index, const std::wstring& name)
 
 	OffsetTable table(mType);
 	const auto offset = table.getTypeNameOffset();
+	if (offset == 0) return false;
 	auto data = mROM.data.data();
 
 	if (bytes.size() < TYPE_NAME_LENGTH)
@@ -186,4 +190,22 @@ bool ROMViewer::writeTypeName(size_t index, const std::wstring& name)
 		data[TYPE_INDEX + i] = bytes[i];
 
 	return true;
+}
+
+const std::wstring ROMViewer::readItemName(size_t index)
+{
+#define ITEM_INDEX ((index * ITEM_DATA_LENGTH) + offset)
+
+	OffsetTable table(mType);
+	const auto offset = table.getItemOffset();
+	if (offset == 0)
+		return L"";
+
+	return Text<std::wstring>::decode(&mROM.data[ITEM_INDEX], ITEM_NAME_LENGTH);
+
+}
+
+bool ROMViewer::writeItemName(size_t index, const std::wstring& name)
+{
+	return false;
 }

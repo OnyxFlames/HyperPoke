@@ -114,6 +114,9 @@
     <ClCompile Include="LZ77.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MonsterItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -216,6 +219,9 @@
       <Filter>Header Files\monster</Filter>
     </ClInclude>
     <ClInclude Include="LZ77.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterItem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

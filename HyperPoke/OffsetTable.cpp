@@ -50,5 +50,17 @@ uint32_t OffsetTable::getTypeNameOffset()
 	switch (mType)
 	{
 	case RomType::FIRERED_US: return 0x24f1a0;
+	case RomType::EMERALD_US: return 0x31ae38;
+	default: return 0;
+	}
+}
+
+uint32_t OffsetTable::getItemOffset()
+{
+	switch (mType)
+	{
+	case RomType::FIRERED_US: return 0x3DB028;
+	case RomType::EMERALD_US: return 0x5839A0;
+	default: return 0;
 	}
 }

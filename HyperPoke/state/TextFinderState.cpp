@@ -4,6 +4,8 @@
 
 #include "../GUI.hpp"
 
+#include "../ROMViewer.hpp"
+
 TextFinderState::TextFinderState(StateStack& stack, Context context)
 	:	State(stack, context)
 	,	mGUI(*context.window)

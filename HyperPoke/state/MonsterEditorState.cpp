@@ -64,6 +64,9 @@ void MonsterEditorState::updateGUIValues()
 	mCatchRate->setText(std::to_string(basestats.catch_rate));
 	mExpYield->setText(std::to_string(basestats.base_xp_yield));
 
+	mItem1->setSelectedItemByIndex(basestats.item1);
+	mItem2->setSelectedItemByIndex(basestats.item2);
+
 	mPrevSelectedIndex = mSelectedIndex;
 }
 
@@ -202,6 +205,41 @@ void MonsterEditorState::buildGUI()
 	mExpYield = basexptxt;
 	mGUI.add(basexptxt);
 
+	auto item1lbl = tgui::Label::create("Item 1:");
+	item1lbl->setPosition(mBaseStats[0]->getPosition().x + 100.f, mBaseStats[0]->getPosition().y);
+	mGUI.add(item1lbl);
+
+	auto item2lbl = tgui::Label::create("Item 2:");
+	item2lbl->setPosition(mBaseStats[1]->getPosition().x + 100.f, mBaseStats[1]->getPosition().y);
+	mGUI.add(item2lbl);
+
+	const auto romType = getContext().rom->getType();
+
+	auto item1drp = tgui::ComboBox::create();
+	item1drp->setPosition(
+		item1lbl->getPosition().x + item1lbl->getSize().x,
+		item1lbl->getPosition().y);
+	item1drp->setSize(125.f, 18.f);
+	item1drp->setItemsToDisplay(20);
+	for (size_t i = 0; 
+		(romType == FIRERED_US ? i < ITEM_COUNT_FRLG : i < ITEM_COUNT_RSE); ++i)
+		item1drp->addItem(rv.readItemName(i));
+	mItem1 = item1drp;
+	mGUI.add(item1drp);
+
+	auto item2drp = tgui::ComboBox::create();
+	item2drp->setPosition(
+		item2lbl->getPosition().x + item2lbl->getSize().x,
+		item2lbl->getPosition().y);
+	item2drp->setSize(125.f, 18.f);
+	item2drp->setItemsToDisplay(20);
+
+	for (size_t i = 0; 
+		(romType == FIRERED_US ? i < ITEM_COUNT_FRLG : i < ITEM_COUNT_RSE); ++i)
+		item2drp->addItem(rv.readItemName(i));
+	mItem2 = item2drp;
+	mGUI.add(item2drp);
+
 	auto return_btn = tgui::Button::create("Menu");
 	return_btn->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	return_btn->setPosition(0.f, window.getSize().y - return_btn->getSize().y);
@@ -222,7 +260,6 @@ void MonsterEditorState::buildGUI()
 		[this, &rom, &data]()
 		{
 			ROMViewer rv(rom);
-			rv.writeTypeName(0, L"GAY");
 			// Name
 			if (mMonsterName->getText() != mMonsterList->getSelectedItem()
 				&& rv.writeMonsterName(mSelectedIndex, mMonsterName->getText()))
@@ -231,6 +268,7 @@ void MonsterEditorState::buildGUI()
 #define valueOf(x)		(static_cast<uint8_t>(std::stoi(x->getText().toAnsiString())))
 #define valueAs(x, t)	(static_cast<t>(std::stoi(x->getText().toAnsiString())))
 #define indexOf(x)		(static_cast<uint8_t>(x->getSelectedItemIndex()))
+#define indexAs(x, t)	(static_cast<t>(x->getSelectedItemIndex()))
 
 			// load initial data first, this is because MonsterBaseStats does not have a default constructor
 			MonsterBaseStats stats(rv.readMonsterStats(mSelectedIndex));
@@ -254,6 +292,9 @@ void MonsterEditorState::buildGUI()
 
 			stats.catch_rate = valueOf(mCatchRate);
 			stats.base_xp_yield = valueOf(mExpYield);
+
+			stats.item1 = indexAs(mItem1, uint16_t);
+			stats.item2 = indexAs(mItem2, uint16_t);
 
 			if (rv.writeMonsterStats(mSelectedIndex, stats))
 				updateGUIValues();

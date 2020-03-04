@@ -29,7 +29,7 @@ private:
 	std::array<tgui::EditBox::Ptr, 6> mEffortValues;
 	tgui::EditBox::Ptr mCatchRate;
 	tgui::EditBox::Ptr mExpYield;
-
+	tgui::ComboBox::Ptr mItem1, mItem2;
 
 	sf::RectangleShape mBackground;
 };

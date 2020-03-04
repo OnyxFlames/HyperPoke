@@ -26,5 +26,8 @@ public:
 
 	const std::wstring readTypeName(size_t index);
 	bool writeTypeName(size_t index, const std::wstring& name);
+
+	const std::wstring readItemName(size_t index);
+	bool writeItemName(size_t index, const std::wstring& name);
 };
 

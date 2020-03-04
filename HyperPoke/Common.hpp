@@ -15,4 +15,10 @@
 #define TYPE_COUNT 18
 #define TYPE_NAME_LENGTH 7
 
-#define BACKGROUND_COLOR sf::Color(186, 186, 186)
+#define ITEM_NAME_LENGTH 14
+#define ITEM_DATA_LENGTH 44
+
+#define ITEM_COUNT_FRLG 375
+#define ITEM_COUNT_RSE 377
+
+#define BACKGROUND_COLOR sf::Color(186, 186, 196)

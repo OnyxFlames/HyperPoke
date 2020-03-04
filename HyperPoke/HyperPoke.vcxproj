@@ -134,6 +134,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="LZ77.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MonsterItem.cpp" />
     <ClCompile Include="monster\Monster.cpp" />
     <ClCompile Include="monster\MonsterBaseStats.cpp" />
     <ClCompile Include="monster\MonsterEvolutionData.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="LZ77.hpp" />
+    <ClInclude Include="MonsterItem.hpp" />
     <ClInclude Include="monster\Monster.hpp" />
     <ClInclude Include="monster\MonsterBaseStats.hpp" />
     <ClInclude Include="monster\MonsterEvolutionData.hpp" />
