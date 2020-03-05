@@ -17,7 +17,7 @@ float genderRatioMale(uint8_t val)
 	if (val == AlwaysMale)
 		return 1.f;
 	else if (gen != MixedGender)
-		return 0.f;
+		return val / 253.f;
 
 	return 0.0f;
 }

@@ -14,6 +14,7 @@ TextFinderState::TextFinderState(StateStack& stack, Context context)
 	mBackground.setFillColor(BACKGROUND_COLOR);
 
 	buildGUI();
+
 }
 
 void TextFinderState::draw()

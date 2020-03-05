@@ -17,7 +17,9 @@ enum RomType
 };
 
 RomType decodeRomType(const uint8_t* data);
-
 RomType decodeRomType(const ROM& rom);
+
+bool isFRLGBase(RomType type);
+bool isRSEBase(RomType type);
 
 const std::string to_string(RomType type);

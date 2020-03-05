@@ -26,6 +26,29 @@ RomType decodeRomType(const ROM& rom)
 	return decodeRomType(&rom.data[0xac]);
 }
 
+bool isFRLGBase(RomType type)
+{
+	switch (type)
+	{
+	case FIRERED_US:
+	case LEAFGREEN_US:
+		return true;
+	default: return false;
+	}
+}
+
+bool isRSEBase(RomType type)
+{
+	switch (type)
+	{
+	case RUBY_US:
+	case SAPPHIRE_US:
+	case EMERALD_US:
+		return true;
+	default: return false;
+	}
+}
+
 const std::string to_string(RomType type)
 {
 	switch (type)

@@ -68,18 +68,17 @@ void MonsterEditorState::updateGUIValues()
 	mItem1->setSelectedItemByIndex(basestats.item1);
 	mItem2->setSelectedItemByIndex(basestats.item2);
 
-	mGender->setSelectedItemByIndex(decodeGender(basestats.gender));
 	if (decodeGender(basestats.gender) == MonsterGender::MixedGender)
 	{
 		mGenderRatio->setEnabled(true);
-		mGenderRatio->setText(std::to_string(basestats.gender));
+		mGender->setSelectedItemByIndex(decodeGender(basestats.gender));
 	}
 	else
 	{
+		mGender->setSelectedItemByIndex(decodeGender(basestats.gender));
 		mGenderRatio->setEnabled(false);
-		mGenderRatio->setText(std::to_string(basestats.gender));
 	}
-
+	mGenderRatio->setText(std::to_string(basestats.gender));
 	mPrevSelectedIndex = mSelectedIndex;
 }
 
@@ -340,12 +339,17 @@ void MonsterEditorState::buildGUI()
 			stats.item1 = indexAs(mItem1, uint16_t);
 			stats.item2 = indexAs(mItem2, uint16_t);
 
-			switch (decodeGender(indexOf(mGender)))
+			switch (indexOf(mGender))
 			{
-			case MonsterGender::MixedGender: stats.gender = valueOf(mGenderRatio); break;
+			case MonsterGender::MixedGender:
+				// use written value or set to Mixed default
+				stats.gender = decodeGender(valueOf(mGenderRatio)) != MonsterGender::MixedGender 
+					? 127 : valueOf(mGenderRatio);
+				break;
 			case MonsterGender::AlwaysMale: stats.gender = 0; break;
 			case MonsterGender::AlwaysFemale: stats.gender = 254; break;
 			case MonsterGender::Genderless: stats.gender = 255; break;
+			default: printf("Invalid gender value\n");
 			}
 
 			if (rv.writeMonsterStats(mSelectedIndex, stats))

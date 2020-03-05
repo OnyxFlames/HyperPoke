@@ -208,5 +208,25 @@ const std::wstring ROMViewer::readItemName(size_t index)
 
 bool ROMViewer::writeItemName(size_t index, const std::wstring& name)
 {
-	return false;
+#define ITEM_INDEX ((index * ITEM_DATA_LENGTH) + offset)
+	auto bytes = Text<std::wstring>::encode(name);
+
+	if (bytes.size() > ITEM_NAME_LENGTH)
+		return false;
+	if ((	index > ITEM_COUNT_FRLG && isFRLGBase(mType))
+		|| (index > ITEM_COUNT_RSE && isRSEBase(mType)))
+			return false;
+
+	OffsetTable table(mType);
+	const auto offset = table.getItemOffset();
+
+	auto data = mROM.data.data() + ITEM_INDEX;
+
+	if (bytes.size() < ITEM_NAME_LENGTH)
+		data[bytes.size()] = 0xff;
+
+	for (size_t i = 0; i < bytes.size(); ++i)
+		data[i] = bytes[i];
+
+	return true;
 }

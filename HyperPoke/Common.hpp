@@ -21,4 +21,4 @@
 #define ITEM_COUNT_FRLG 375
 #define ITEM_COUNT_RSE 377
 
-#define BACKGROUND_COLOR sf::Color(186, 186, 196)
+#define BACKGROUND_COLOR sf::Color(186, 186, 206)
