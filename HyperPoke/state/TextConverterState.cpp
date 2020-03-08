@@ -12,6 +12,9 @@ TextConverterState::TextConverterState(StateStack& stack, Context context)
 	:	State(stack, context)
 	,	mGUI(*context.window)
 {
+	// initialize what the buttons will do
+	initFunctions();
+
 	mBackground.setSize(static_cast<sf::Vector2f>(context.window->getSize()));
 	mBackground.setFillColor(BACKGROUND_COLOR);
 	buildGUI();
@@ -59,14 +62,8 @@ void TextConverterState::buildGUI()
 		string_box->getPosition().x + string_box->getSize().x,
 		string_box->getPosition().y
 		);
-	convert_str_button->connect("pressed",
-	[this] ()
-	{
-			if (mStringBox->getText().getSize() > 0)
-				mHexBox->setText(ByteArrayToByteString(Text<std::wstring>::encode(mStringBox->getText())));
-			else
-				mHexBox->setText("");
-	});
+	convert_str_button->connect("pressed", ConvertString);
+
 	mConvertButton = convert_str_button;
 
 	mGUI.add(convert_str_button);
@@ -77,14 +74,7 @@ void TextConverterState::buildGUI()
 		hex_box->getPosition().x + hex_box->getSize().x,
 		convert_str_button->getPosition().y + convert_str_button->getSize().y
 	);
-	convert_hex_button->connect("pressed",
-		[this]()
-		{
-			if (mHexBox->getText().getSize() > 0)
-				mStringBox->setText(Text<std::wstring>::decode(ByteStringToByteArray(mHexBox->getText()).data()));
-			else
-				mStringBox->setText("");
-		});
+	convert_hex_button->connect("pressed", ConvertHex);
 	mGUI.add(convert_hex_button);
 
 	auto clear_fields = tgui::Button::create("Clear Fields");
@@ -93,12 +83,7 @@ void TextConverterState::buildGUI()
 		hex_box->getPosition().x + hex_box->getSize().x, 
 		convert_hex_button->getPosition().y + convert_hex_button->getSize().y
 	);
-	clear_fields->connect("pressed", 
-	[this] ()
-	{
-			mStringBox->setText("");
-			mHexBox->setText("");
-	});
+	clear_fields->connect("pressed", ClearFields);
 
 	mGUI.add(clear_fields);
 
@@ -124,6 +109,31 @@ void TextConverterState::buildGUI()
 	});
 
 	mGUI.add(return_button);
+}
+
+void TextConverterState::initFunctions()
+{
+	ConvertString = [this]()
+	{
+		if (mStringBox->getText().getSize() > 0)
+			mHexBox->setText(ByteArrayToByteString(Text<std::wstring>::encode(mStringBox->getText())));
+		else
+			mHexBox->setText("");
+	};
+
+	ConvertHex = [this]()
+	{
+		if (mHexBox->getText().getSize() > 0)
+			mStringBox->setText(Text<std::wstring>::decode(ByteStringToByteArray(mHexBox->getText()).data()));
+		else
+			mStringBox->setText("");
+	};
+
+	ClearFields = [this]()
+	{
+		mStringBox->setText("");
+		mHexBox->setText("");
+	};
 }
 
 void TextConverterState::checkButtonAvailablity()

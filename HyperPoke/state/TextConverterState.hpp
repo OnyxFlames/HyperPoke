@@ -4,8 +4,13 @@
 
 #include "TGUI/TGUI.hpp"
 
+
+#include <functional>
+
 class TextConverterState : public State
 {
+private:
+	std::function<void()> ConvertString, ConvertHex, ClearFields;
 public:
 	TextConverterState(StateStack& stack, Context context);
 
@@ -16,6 +21,7 @@ public:
 private:
 	tgui::Gui mGUI;
 	void buildGUI();
+	void initFunctions();
 	void checkButtonAvailablity();
 
 	tgui::Button::Ptr mConvertButton;
