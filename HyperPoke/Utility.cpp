@@ -39,7 +39,7 @@ std::vector<uint8_t> ByteStringToByteArray(std::wstring str)
 		if (i + 1 < str.size())
 			buff += str[i + 1];
 
-		res.push_back(std::stoi(buff, nullptr, 16));
+		res.push_back(static_cast<uint8_t>(std::stoi(buff, nullptr, 16)));
 	}
 	if (res.size() > 0)
 	{
