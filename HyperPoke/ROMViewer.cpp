@@ -126,7 +126,6 @@ bool ROMViewer::writeMonsterStats(size_t index, const MonsterBaseStats& stats)
 	
 	data[6] = stats.type1;
 	data[7] = stats.type2;
-// disable other data writing until menu supports it
 
 	data[8] = stats.catch_rate;
 	data[9] = stats.base_xp_yield;
