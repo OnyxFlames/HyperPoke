@@ -3,6 +3,18 @@
 #include "Text.hpp"
 #include <sstream>
 #include <iomanip>
+#include <cctype>
+
+template<typename T> 
+T trim_whitespace(const T& str)
+{
+	T ret = T();
+	for (const auto c : str)
+		if (!std::isspace(c))
+			ret += c;
+
+	return ret;
+}
 
 std::wstring ByteArrayToByteString(std::vector<uint8_t> arr)
 {
@@ -17,13 +29,13 @@ std::wstring ByteArrayToByteString(std::vector<uint8_t> arr)
 
 std::vector<uint8_t> ByteStringToByteArray(std::wstring str)
 {
+	str = trim_whitespace(str);
 	std::wstring buff;
 	std::vector<uint8_t> res;
 	for (size_t i = 0; i < str.size(); i += 2, buff = L"")
 	{
-		if (buff[i] == ' ')
-			continue;
 		buff += str[i];
+
 		if (i + 1 < str.size())
 			buff += str[i + 1];
 
