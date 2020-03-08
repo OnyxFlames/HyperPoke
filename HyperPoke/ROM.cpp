@@ -45,7 +45,7 @@ bool ROM::loadFromFile(const std::string& name)
 	return true;
 }
 
-RomType ROM::getType() const
+ROMType ROM::getType() const
 {
 	return mType;
 }

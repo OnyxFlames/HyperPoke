@@ -7,9 +7,9 @@
 class OffsetTable
 {
 private:
-	RomType mType;
+	ROMType mType;
 public:
-	OffsetTable(RomType type);
+	OffsetTable(ROMType type);
 
 	uint32_t getMonsterNameOffset();
 	uint32_t getBaseStatOffset();

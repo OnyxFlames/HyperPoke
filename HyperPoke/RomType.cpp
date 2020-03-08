@@ -1,7 +1,7 @@
 #include "RomType.hpp"
 
 
-RomType decodeRomType(const uint8_t* data)
+ROMType decodeRomType(const uint8_t* data)
 {
 
 	if (std::memcmp("AXPE", data, 4) == 0)
@@ -21,12 +21,12 @@ RomType decodeRomType(const uint8_t* data)
 
 #include "ROM.hpp"
 
-RomType decodeRomType(const ROM& rom)
+ROMType decodeRomType(const ROM& rom)
 {
 	return decodeRomType(&rom.data[0xac]);
 }
 
-bool isFRLGBase(RomType type)
+bool isFRLGBase(ROMType type)
 {
 	switch (type)
 	{
@@ -37,7 +37,7 @@ bool isFRLGBase(RomType type)
 	}
 }
 
-bool isRSEBase(RomType type)
+bool isRSEBase(ROMType type)
 {
 	switch (type)
 	{
@@ -49,7 +49,7 @@ bool isRSEBase(RomType type)
 	}
 }
 
-const std::string to_string(RomType type)
+const std::string to_string(ROMType type)
 {
 	switch (type)
 	{

@@ -11,7 +11,7 @@
 class ROM
 {
 private:
-	RomType mType;
+	ROMType mType;
 public:
 	ROM();
 	ROM(const std::string& name);
@@ -20,6 +20,6 @@ public:
 
 	void writeToFile(const std::string& name);
 	bool loadFromFile(const std::string& name);
-	RomType getType() const;
+	ROMType getType() const;
 };
 

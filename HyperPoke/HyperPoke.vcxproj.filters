@@ -69,9 +69,6 @@
     <ClCompile Include="OffsetTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RomType.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FilePrompt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -222,6 +219,9 @@
     <ClCompile Include="lua\lzio.c">
       <Filter>Source Files\lua</Filter>
     </ClCompile>
+    <ClCompile Include="ROMType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -261,9 +261,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OffsetTable.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RomType.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Common.hpp">
@@ -415,6 +412,9 @@
     </ClInclude>
     <ClInclude Include="sol\sol.hpp">
       <Filter>Header Files\sol</Filter>
+    </ClInclude>
+    <ClInclude Include="ROMType.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

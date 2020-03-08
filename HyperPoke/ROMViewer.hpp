@@ -11,7 +11,7 @@ class ROMViewer
 {
 private:
 	ROM& mROM;
-	RomType mType;
+	ROMType mType;
 public:
 	ROMViewer(ROM& rom);
 

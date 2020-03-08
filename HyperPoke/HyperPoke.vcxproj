@@ -177,7 +177,7 @@
     <ClCompile Include="monster\MonsterType.cpp" />
     <ClCompile Include="OffsetTable.cpp" />
     <ClCompile Include="ROM.cpp" />
-    <ClCompile Include="RomType.cpp" />
+    <ClCompile Include="ROMType.cpp" />
     <ClCompile Include="ROMViewer.cpp" />
     <ClCompile Include="state\MenuState.cpp" />
     <ClCompile Include="state\MonsterEditorState.cpp" />
@@ -238,7 +238,7 @@
     <ClInclude Include="monster\MonsterType.hpp" />
     <ClInclude Include="OffsetTable.hpp" />
     <ClInclude Include="ROM.hpp" />
-    <ClInclude Include="RomType.hpp" />
+    <ClInclude Include="ROMType.hpp" />
     <ClInclude Include="ROMViewer.hpp" />
     <ClInclude Include="sol\forward.hpp" />
     <ClInclude Include="sol\sol.hpp" />

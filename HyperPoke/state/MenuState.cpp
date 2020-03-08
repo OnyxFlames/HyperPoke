@@ -211,7 +211,7 @@ void MenuState::checkButtonAvailablity()
 			mBackupButton->setEnabled(false);
 	}
 
-	if (getContext().rom->getType() != RomType::UNKNOWN_ROM)
+	if (getContext().rom->getType() != ROMType::UNKNOWN_ROM)
 	{
 		mMonsterEditor->setEnabled(true);
 		mRomSearch->setEnabled(true);

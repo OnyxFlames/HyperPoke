@@ -6,7 +6,7 @@
 
 class ROM;
 
-enum RomType
+enum ROMType
 {
 	UNKNOWN_ROM,
 	RUBY_US,
@@ -16,10 +16,10 @@ enum RomType
 	EMERALD_US,
 };
 
-RomType decodeRomType(const uint8_t* data);
-RomType decodeRomType(const ROM& rom);
+ROMType decodeRomType(const uint8_t* data);
+ROMType decodeRomType(const ROM& rom);
 
-bool isFRLGBase(RomType type);
-bool isRSEBase(RomType type);
+bool isFRLGBase(ROMType type);
+bool isRSEBase(ROMType type);
 
-const std::string to_string(RomType type);
+const std::string to_string(ROMType type);
