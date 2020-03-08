@@ -21,6 +21,8 @@ std::vector<uint8_t> ByteStringToByteArray(std::wstring str)
 	std::vector<uint8_t> res;
 	for (size_t i = 0; i < str.size(); i += 2, buff = L"")
 	{
+		if (buff[i] == ' ')
+			continue;
 		buff += str[i];
 		if (i + 1 < str.size())
 			buff += str[i + 1];

@@ -127,6 +127,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="ByteArray.cpp" />
     <ClCompile Include="FilePrompt.cpp" />
     <ClCompile Include="imgui\imgui-SFML.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -190,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="ByteArray.hpp" />
     <ClInclude Include="Common.hpp" />
     <ClInclude Include="FilePrompt.hpp" />
     <ClInclude Include="GUI.hpp" />

@@ -6,7 +6,7 @@
 #include <sstream>
 #include <iomanip>
 
-#include "../Utility.hpp"
+#include "../ByteArray.hpp"
 
 TextConverterState::TextConverterState(StateStack& stack, Context context)
 	:	State(stack, context)
