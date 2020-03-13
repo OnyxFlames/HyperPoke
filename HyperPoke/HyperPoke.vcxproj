@@ -180,6 +180,7 @@
     <ClCompile Include="ROM.cpp" />
     <ClCompile Include="ROMType.cpp" />
     <ClCompile Include="ROMViewer.cpp" />
+    <ClCompile Include="state\ExampleState.cpp" />
     <ClCompile Include="state\MenuState.cpp" />
     <ClCompile Include="state\MonsterEditorState.cpp" />
     <ClCompile Include="state\State.cpp" />
@@ -245,6 +246,7 @@
     <ClInclude Include="sol\forward.hpp" />
     <ClInclude Include="sol\sol.hpp" />
     <ClInclude Include="state\AllStates.hpp" />
+    <ClInclude Include="state\ExampleState.hpp" />
     <ClInclude Include="state\MenuState.hpp" />
     <ClInclude Include="state\MonsterEditorState.hpp" />
     <ClInclude Include="state\State.hpp" />

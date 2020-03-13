@@ -225,6 +225,9 @@
     <ClCompile Include="ByteArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="state\ExampleState.cpp">
+      <Filter>Source Files\state</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -421,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="ByteArray.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="state\ExampleState.hpp">
+      <Filter>Header Files\state</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,12 +6,12 @@
 
 #include <functional>
 
-class TextFinderState : public State
+class ExampleState : public State
 {
 private:
 	std::function<void()> mSearch;
 public:
-	TextFinderState(StateStack& stack, Context context);
+	ExampleState(StateStack& stack, Context context);
 
 	virtual void draw();
 	virtual bool update(sf::Time dt);
