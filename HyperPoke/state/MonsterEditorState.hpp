@@ -6,8 +6,12 @@
 #include "../Common.hpp"
 #include "TGUI/TGUI.hpp"
 
+#include <functional>
+
 class MonsterEditorState : public State
 {
+private:
+	std::function<void()> UpdateMonsterList, UpdateGenderList, WriteChanges;
 public:
 	MonsterEditorState(StateStack& stack, Context context);
 
@@ -19,6 +23,7 @@ public:
 private:
 	tgui::Gui mGUI;
 	void buildGUI();
+	void initFunctions();
 	void checkButtonAvailablity();
 
 	int16_t mSelectedIndex = 0, mPrevSelectedIndex = -1;

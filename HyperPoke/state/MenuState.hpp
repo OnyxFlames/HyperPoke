@@ -4,8 +4,12 @@
 
 #include "TGUI/TGUI.hpp"
 
+#include <functional>
+
 class MenuState : public State
 {
+private:
+	std::function<void()> BrowseFiles, LoadROM, SaveROM, MakeBackup, RestoreBackup;
 public:
 	MenuState(StateStack& stack, Context context);
 
@@ -16,6 +20,7 @@ public:
 private:
 	tgui::Gui mGUI;
 	void buildGUI();
+	void initFunctions();
 	void checkButtonAvailablity();
 
 	tgui::EditBox::Ptr mRomName;

@@ -14,6 +14,7 @@ MonsterEditorState::MonsterEditorState(StateStack& stack, Context context)
 	:	State(stack, context)
 	,	mGUI(*context.window)
 {
+	initFunctions();
 	buildGUI();
 
 	mBackground.setFillColor(BACKGROUND_COLOR);
@@ -94,12 +95,7 @@ void MonsterEditorState::buildGUI()
 	monsterlist->setSize(DROPDOWN_WIDTH, DROPDOWN_HEIGHT);
 	monsterlist->setPosition(25.f, 25.f);
 	monsterlist->setItemsToDisplay(25);
-	monsterlist->connect("ItemSelected", 
-	[this]()
-	{
-			mMonsterName->setText(mMonsterList->getSelectedItem());
-			mSelectedIndex = mMonsterList->getSelectedItemIndex();
-	});
+	monsterlist->connect("ItemSelected", UpdateMonsterList);
 	mMonsterList = monsterlist;
 	mGUI.add(monsterlist);
 
@@ -262,14 +258,7 @@ void MonsterEditorState::buildGUI()
 		lblgender->getPosition().x + lblgender->getSize().x,
 		lblgender->getPosition().y);
 	cbogender->setSize(80.f, 18.f);
-	cbogender->connect("itemselected",
-		[this]()
-		{
-			if (mGender->getSelectedItemIndex() == MonsterGender::MixedGender)
-				mGenderRatio->setEnabled(true);
-			else
-				mGenderRatio->setEnabled(false);
-		});
+	cbogender->connect("itemselected", UpdateGenderList);
 	for (size_t i = 0; i < MonsterGender::GenderCount; ++i)
 		cbogender->addItem(to_string(static_cast<MonsterGender>(i)));
 	mGender = cbogender;
@@ -299,65 +288,84 @@ void MonsterEditorState::buildGUI()
 	auto write_changes = tgui::Button::create("Write Changes");
 	write_changes->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	write_changes->setPosition(BUTTON_WIDTH, window.getSize().y - BUTTON_HEIGHT);
-	write_changes->connect("pressed",
-		[this, &rom, &data]()
-		{
-			ROMViewer rv(rom);
-			// Name
-			if (mMonsterName->getText() != mMonsterList->getSelectedItem()
-				&& rv.writeMonsterName(mSelectedIndex, mMonsterName->getText()))
-				mMonsterList->changeItemByIndex(mSelectedIndex, mMonsterName->getText());
+	write_changes->connect("pressed", WriteChanges);
+		
+	mGUI.add(write_changes);
+}
+
+void MonsterEditorState::initFunctions()
+{
+	UpdateMonsterList = [this]()
+	{
+		mMonsterName->setText(mMonsterList->getSelectedItem());
+		mSelectedIndex = mMonsterList->getSelectedItemIndex();
+	};
+
+	UpdateGenderList = [this]()
+	{
+		if (mGender->getSelectedItemIndex() == MonsterGender::MixedGender)
+			mGenderRatio->setEnabled(true);
+		else
+			mGenderRatio->setEnabled(false);
+	};
+
+	WriteChanges = [this]()
+	{
+		ROMViewer rv(*getContext().rom);
+		// Name
+		if (mMonsterName->getText() != mMonsterList->getSelectedItem()
+			&& rv.writeMonsterName(mSelectedIndex, mMonsterName->getText()))
+			mMonsterList->changeItemByIndex(mSelectedIndex, mMonsterName->getText());
 
 #define valueOf(x)		(static_cast<uint8_t>(std::stoi(x->getText().toAnsiString())))
 #define valueAs(x, t)	(static_cast<t>(std::stoi(x->getText().toAnsiString())))
 #define indexOf(x)		(static_cast<uint8_t>(x->getSelectedItemIndex()))
 #define indexAs(x, t)	(static_cast<t>(x->getSelectedItemIndex()))
 
-			// load initial data first, this is because MonsterBaseStats does not have a default constructor
-			MonsterBaseStats stats(rv.readMonsterStats(mSelectedIndex));
-			// Note: The order is due to the menu not lining up with the way the values are stored
-			stats.base_HP = valueOf(mBaseStats[0]);
-			stats.base_attack = valueOf(mBaseStats[1]);
-			stats.base_defense = valueOf(mBaseStats[2]);
-			stats.base_spattack = valueOf(mBaseStats[3]);
-			stats.base_spdefense = valueOf(mBaseStats[4]);
-			stats.base_speed = valueOf(mBaseStats[5]);
+		// load initial data first, this is because MonsterBaseStats does not have a default constructor
+		MonsterBaseStats stats(rv.readMonsterStats(mSelectedIndex));
+		// Note: The order is due to the menu not lining up with the way the values are stored
+		stats.base_HP = valueOf(mBaseStats[0]);
+		stats.base_attack = valueOf(mBaseStats[1]);
+		stats.base_defense = valueOf(mBaseStats[2]);
+		stats.base_spattack = valueOf(mBaseStats[3]);
+		stats.base_spdefense = valueOf(mBaseStats[4]);
+		stats.base_speed = valueOf(mBaseStats[5]);
 
-			stats.type1 = indexOf(mType1);
-			stats.type2 = indexOf(mType2);
+		stats.type1 = indexOf(mType1);
+		stats.type2 = indexOf(mType2);
 
-			stats.effort_yield.HP = valueOf(mEffortValues[0]);
-			stats.effort_yield.Attack = valueOf(mEffortValues[1]);
-			stats.effort_yield.Defense = valueOf(mEffortValues[2]);
-			stats.effort_yield.SpAttack = valueOf(mEffortValues[3]);
-			stats.effort_yield.SpDefense = valueOf(mEffortValues[4]);
-			stats.effort_yield.Speed = valueOf(mEffortValues[5]);
+		stats.effort_yield.HP = valueOf(mEffortValues[0]);
+		stats.effort_yield.Attack = valueOf(mEffortValues[1]);
+		stats.effort_yield.Defense = valueOf(mEffortValues[2]);
+		stats.effort_yield.SpAttack = valueOf(mEffortValues[3]);
+		stats.effort_yield.SpDefense = valueOf(mEffortValues[4]);
+		stats.effort_yield.Speed = valueOf(mEffortValues[5]);
 
-			stats.catch_rate = valueOf(mCatchRate);
-			stats.base_xp_yield = valueOf(mExpYield);
+		stats.catch_rate = valueOf(mCatchRate);
+		stats.base_xp_yield = valueOf(mExpYield);
 
-			stats.item1 = indexAs(mItem1, uint16_t);
-			stats.item2 = indexAs(mItem2, uint16_t);
+		stats.item1 = indexAs(mItem1, uint16_t);
+		stats.item2 = indexAs(mItem2, uint16_t);
 
-			switch (indexOf(mGender))
-			{
-			case MonsterGender::MixedGender:
-				// use written value or set to Mixed default
-				stats.gender = decodeGender(valueOf(mGenderRatio)) != MonsterGender::MixedGender 
-					? 127 : valueOf(mGenderRatio);
-				break;
-			case MonsterGender::AlwaysMale: stats.gender = 0; break;
-			case MonsterGender::AlwaysFemale: stats.gender = 254; break;
-			case MonsterGender::Genderless: stats.gender = 255; break;
-			default: printf("Invalid gender value\n");
-			}
+		switch (indexOf(mGender))
+		{
+		case MonsterGender::MixedGender:
+			// use written value or set to Mixed default
+			stats.gender = decodeGender(valueOf(mGenderRatio)) != MonsterGender::MixedGender
+				? 127 : valueOf(mGenderRatio);
+			break;
+		case MonsterGender::AlwaysMale: stats.gender = 0; break;
+		case MonsterGender::AlwaysFemale: stats.gender = 254; break;
+		case MonsterGender::Genderless: stats.gender = 255; break;
+		default: printf("Invalid gender value\n");
+		}
 
-			if (rv.writeMonsterStats(mSelectedIndex, stats))
-				updateGUIValues();
+		if (rv.writeMonsterStats(mSelectedIndex, stats))
+			updateGUIValues();
 
 
-		});
-	mGUI.add(write_changes);
+	};
 }
 
 void MonsterEditorState::checkButtonAvailablity()

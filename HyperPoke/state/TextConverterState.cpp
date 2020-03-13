@@ -14,10 +14,10 @@ TextConverterState::TextConverterState(StateStack& stack, Context context)
 {
 	// initialize what the buttons will do
 	initFunctions();
+	buildGUI();
 
 	mBackground.setSize(static_cast<sf::Vector2f>(context.window->getSize()));
 	mBackground.setFillColor(BACKGROUND_COLOR);
-	buildGUI();
 }
 
 void TextConverterState::draw()
@@ -84,7 +84,6 @@ void TextConverterState::buildGUI()
 		convert_hex_button->getPosition().y + convert_hex_button->getSize().y
 	);
 	clear_fields->connect("pressed", ClearFields);
-
 	mGUI.add(clear_fields);
 
 	auto string_lbl = tgui::Label::create("String:");

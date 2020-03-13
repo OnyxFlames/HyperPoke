@@ -13,6 +13,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	:	State(stack, context)
 	,	mGUI(*context.window)
 {
+	initFunctions();
 	buildGUI();
 }
 
@@ -54,60 +55,25 @@ void MenuState::buildGUI()
 	auto browsebutton = tgui::Button::create("Browse");
 	browsebutton->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	browsebutton->setPosition(0, bounds.y - ((browsebutton->getSize().y * 2) + EDITBOX_HEIGHT));
-	browsebutton->connect
-	("pressed", [this]()
-		{
-			mRomName->setText(FilePrompt::getFilePrompt("Select a ROM", ""));
-			mRomNameLabel->setText("ROM: None");
-		});
+	browsebutton->connect("pressed", BrowseFiles);
 	mGUI.add(browsebutton);
 
 	auto loadbutton = tgui::Button::create("Load ROM");
 	loadbutton->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	loadbutton->setPosition(BUTTON_WIDTH * 0.f, bounds.y - loadbutton->getSize().y);
-	loadbutton->connect
-	("pressed", [this, context]()
-		{
-			if (context.rom->loadFromFile(mRomName->getText()))
-			{
-				mRomNameLabel->setText("ROM: " + to_string(context.rom->getType()));
-			}
-		});
+	loadbutton->connect("pressed", LoadROM);
 	mGUI.add(loadbutton);
 
 	auto savebutton = tgui::Button::create("Save ROM");
 	savebutton->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	savebutton->setPosition(BUTTON_WIDTH * 1.f, bounds.y - (savebutton->getSize().y));
-	savebutton->connect
-	("pressed", [this, context]()
-		{
-			const std::string file = mRomName->getText();
-
-			if (context.rom->data.size() > 0)
-			{
-				context.rom->writeToFile(mRomName->getText());
-				mRomNameLabel->setText("Saved to file: " + fs::path(file).filename().string());
-			}
-		});
+	savebutton->connect("pressed", SaveROM);
 	mGUI.add(savebutton);
 
 	auto backup = tgui::Button::create("Make Backup");
 	backup->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	backup->setPosition(BUTTON_WIDTH * 2.f, bounds.y - (backup->getSize().y));
-	backup->connect("pressed",
-		[this]()
-		{
-			const std::string file = mRomName->getText().toAnsiString();
-
-			if (fs::exists(file + ".bak"))
-				fs::remove(file + ".bak");
-
-			fs::copy_file(
-				file,
-				file + ".bak");
-
-			mRomNameLabel->setText("Created: " + fs::path(file + ".bak").filename().string());
-		});
+	backup->connect("pressed", MakeBackup);
 	backup->setEnabled(false);
 	mBackupButton = backup;
 	mGUI.add(backup);
@@ -115,21 +81,7 @@ void MenuState::buildGUI()
 	auto restore = tgui::Button::create("Restore Backup");
 	restore->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	restore->setPosition(BUTTON_WIDTH * 3.f, bounds.y - backup->getSize().y);
-	restore->connect("pressed",
-		[this]()
-		{
-			const std::string backup = mRomName->getText().toAnsiString();
-			const std::string file = mRomName->getText().toAnsiString().substr(0, backup.size() - 4);
-
-			if (fs::exists(file))
-				fs::remove(file);
-
-			fs::copy_file(
-				backup,
-				file);
-
-			mRomNameLabel->setText("Restored: " + fs::path(file).filename().string());
-		});
+	restore->connect("pressed", RestoreBackup);
 	mRestoreButton = restore;
 	restore->setEnabled(false);
 	mGUI.add(restore);
@@ -194,6 +146,60 @@ void MenuState::buildGUI()
 			requestStackPop();
 		});
 	mGUI.add(exit_btn);
+}
+
+void MenuState::initFunctions()
+{
+	BrowseFiles = [this]()
+	{
+		mRomName->setText(FilePrompt::getFilePrompt("Select a ROM", ""));
+		mRomNameLabel->setText("ROM: None");
+	};
+	LoadROM = [this]()
+	{
+		if (getContext().rom->loadFromFile(mRomName->getText()))
+		{
+			mRomNameLabel->setText("ROM: " + to_string(getContext().rom->getType()));
+		}
+	};
+	SaveROM = [this]()
+	{
+		const std::string file = mRomName->getText();
+
+		if (getContext().rom->data.size() > 0)
+		{
+			getContext().rom->writeToFile(mRomName->getText());
+			mRomNameLabel->setText("Saved to file: " + fs::path(file).filename().string());
+		}
+	};
+	MakeBackup = [this]()
+	{
+		const std::string file = mRomName->getText().toAnsiString();
+
+		if (fs::exists(file + ".bak"))
+			fs::remove(file + ".bak");
+
+		fs::copy_file(
+			file,
+			file + ".bak");
+
+		mRomNameLabel->setText("Created: " + fs::path(file + ".bak").filename().string());
+	};
+
+	RestoreBackup = [this]()
+	{
+		const std::string backup = mRomName->getText().toAnsiString();
+		const std::string file = mRomName->getText().toAnsiString().substr(0, backup.size() - 4);
+
+		if (fs::exists(file))
+			fs::remove(file);
+
+		fs::copy_file(
+			backup,
+			file);
+
+		mRomNameLabel->setText("Restored: " + fs::path(file).filename().string());
+	};
 }
 
 void MenuState::checkButtonAvailablity()
