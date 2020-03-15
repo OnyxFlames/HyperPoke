@@ -64,3 +64,21 @@ uint32_t OffsetTable::getItemOffset()
 	default: return 0;
 	}
 }
+
+uint32_t OffsetTable::getMonsterFrontSpriteOffset()
+{
+	switch (mType)
+	{
+	case ROMType::FIRERED_US: return 0x2350AC;
+	default: return 0;
+	}
+}
+
+uint32_t OffsetTable::getMonsterNormalPallet()
+{
+	switch (mType)
+	{
+	case ROMType::FIRERED_US: return 0x23730C;
+	default: return 0;
+	}
+}

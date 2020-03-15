@@ -17,5 +17,7 @@ public:
 	uint32_t getMoveNameOffset();
 	uint32_t getTypeNameOffset();
 	uint32_t getItemOffset();
+	uint32_t getMonsterFrontSpriteOffset();
+	uint32_t getMonsterNormalPallet();
 };
 
