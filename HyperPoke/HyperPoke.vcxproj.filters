@@ -231,6 +231,9 @@
     <ClCompile Include="ColourPalette.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="state\StarterEditorState.cpp">
+      <Filter>Source Files\state</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -433,6 +436,9 @@
     </ClInclude>
     <ClInclude Include="ColourPalette.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="state\StarterEditorState.hpp">
+      <Filter>Header Files\state</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

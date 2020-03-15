@@ -184,6 +184,7 @@
     <ClCompile Include="state\ExampleState.cpp" />
     <ClCompile Include="state\MenuState.cpp" />
     <ClCompile Include="state\MonsterEditorState.cpp" />
+    <ClCompile Include="state\StarterEditorState.cpp" />
     <ClCompile Include="state\State.cpp" />
     <ClCompile Include="state\StateStack.cpp" />
     <ClCompile Include="state\TextConverterState.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="state\ExampleState.hpp" />
     <ClInclude Include="state\MenuState.hpp" />
     <ClInclude Include="state\MonsterEditorState.hpp" />
+    <ClInclude Include="state\StarterEditorState.hpp" />
     <ClInclude Include="state\State.hpp" />
     <ClInclude Include="state\StateIdentifiers.hpp" />
     <ClInclude Include="state\StateStack.hpp" />
