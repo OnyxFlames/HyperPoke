@@ -9,7 +9,7 @@
 class ExampleState : public State
 {
 private:
-	std::function<void()> mSearch;
+	std::function<void()> ExampleFunction;
 public:
 	ExampleState(StateStack& stack, Context context);
 
