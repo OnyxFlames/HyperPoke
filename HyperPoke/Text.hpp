@@ -67,3 +67,8 @@ T Text<T>::decode(uint8_t* data, size_t amount)
 
 	return text;
 }
+
+namespace instrinsic
+{
+	bool generateDecodeTablePrototype(const char* filename);
+}

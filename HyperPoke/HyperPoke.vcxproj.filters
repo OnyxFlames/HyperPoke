@@ -229,7 +229,7 @@
       <Filter>Source Files\state</Filter>
     </ClCompile>
     <ClCompile Include="ColourPalette.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -432,7 +432,7 @@
       <Filter>Header Files\state</Filter>
     </ClInclude>
     <ClInclude Include="ColourPalette.hpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
