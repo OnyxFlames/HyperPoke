@@ -29,6 +29,10 @@ void StarterEditorState::buildGUI()
 {
 }
 
+void StarterEditorState::initFunctions()
+{
+}
+
 void StarterEditorState::checkButtonAvailablity()
 {
 }

@@ -9,7 +9,7 @@
 class StarterEditorState : public State
 {
 private:
-	std::function<void()> mSearch;
+	std::function<void()> WriteStarterData;
 public:
 	StarterEditorState(StateStack& stack, Context context);
 
@@ -20,7 +20,10 @@ public:
 private:
 	tgui::Gui mGUI;
 	void buildGUI();
+	void initFunctions();
 	void checkButtonAvailablity();
+
+	tgui::ListBox::Ptr mFirstMonster, mSecondMonster, mThirdMonster, mOpponent;
 
 };
 
