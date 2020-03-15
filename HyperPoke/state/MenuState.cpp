@@ -135,6 +135,16 @@ void MenuState::buildGUI()
 		});
 	mGUI.add(text_search);
 
+	auto starter_editor = tgui::Button::create("Edit Starters");
+	starter_editor->setPosition(monstereditor->getSize().x, BUTTON_HEIGHT + 25.f);
+	starter_editor->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+	starter_editor->connect("pressed",
+		[this]()
+		{
+			requestStackPush(States::StarterEditor);
+		});
+	mGUI.add(starter_editor);
+
 	auto exit_btn = tgui::Button::create("Exit Application");
 	exit_btn->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	exit_btn->setPosition(

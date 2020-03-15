@@ -4,8 +4,10 @@
 #include "StarterEditorState.hpp"
 
 StarterEditorState::StarterEditorState(StateStack& stack, Context context)
-	:	State(stack, context)
+	: State(stack, context)
+	, mGUI(*context.window)
 {
+	buildGUI();
 }
 
 void StarterEditorState::draw()
@@ -27,6 +29,20 @@ bool StarterEditorState::handleEvent(const sf::Event& event)
 
 void StarterEditorState::buildGUI()
 {
+	const auto bounds = getContext().window->getSize();
+
+
+
+
+	auto return_btn = tgui::Button::create("Menu");
+	return_btn->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+	return_btn->setPosition(0.f, bounds.y - BUTTON_HEIGHT);
+	return_btn->connect("pressed",
+		[this]()
+		{
+			requestStackPop();
+		});
+	mGUI.add(return_btn);
 }
 
 void StarterEditorState::initFunctions()

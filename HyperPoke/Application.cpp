@@ -5,10 +5,11 @@
 Application::Application()
 	:	mWindow(sf::VideoMode(720, 640), "HyperPoke", sf::Style::Close)
 	,	mStateStack(State::Context(mWindow, mROM))
+	,	mDefaultState(States::MenuState)
 {
 	registerStates();
 
-	mStateStack.pushState(States::MenuState);
+	mStateStack.pushState(mDefaultState);
 }
 
 void Application::run()
@@ -20,6 +21,11 @@ void Application::run()
 		update(mClock.restart());
 		render();
 	}
+}
+
+void Application::setDefaultState(States::ID state)
+{
+	mDefaultState = state;
 }
 
 void Application::processEvents()
@@ -63,4 +69,5 @@ void Application::registerStates()
 	mStateStack.registerState<MonsterEditorState>(States::MonsterEditor);
 	mStateStack.registerState<TextConverterState>(States::TextConverter);
 	mStateStack.registerState<TextFinderState>(States::TextFinder);
+	mStateStack.registerState<StarterEditorState>(States::StarterEditor);
 }

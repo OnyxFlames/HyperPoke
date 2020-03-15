@@ -9,5 +9,7 @@ namespace States
 		MonsterEditor,
 		TextConverter,
 		TextFinder,
+		// RSE only v
+		StarterEditor,
 	};
 }
