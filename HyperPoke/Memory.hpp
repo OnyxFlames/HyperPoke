@@ -10,6 +10,13 @@ void write(const uint8_t* data, T value);
 template <typename T>
 void seq_write(uint8_t*& data, T value);
 
+template <typename T, size_t N>
+void write_n(uint8_t* data, T* values);
+
+template <typename T, size_t N>
+void seq_write_n(uint8_t*& data, T* values);
+
+
 template <typename T>
 T read(const uint8_t* data);
 

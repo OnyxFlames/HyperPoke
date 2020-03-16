@@ -35,6 +35,20 @@ inline void seq_write(uint8_t*& data, T value)
 	return write<T>(off, value);
 }
 
+template<typename T, size_t N>
+inline void write_n(uint8_t* data, T* values)
+{
+	for (size_t i = 0; i < N; ++i)
+		write(data + sizeof(T) * i, values[i]);
+}
+
+template<typename T, size_t N>
+inline void seq_write_n(uint8_t*& data, T* values)
+{
+	for (size_t i = 0; i < N; ++i)
+		seq_write(data, values[i]);
+}
+
 template<typename T>
 inline T read(const uint8_t* data)
 {
@@ -77,8 +91,12 @@ inline T seq_read(uint8_t*& data)
 template<typename T, size_t N>
 inline std::array<T, N> seq_read(uint8_t*& data)
 {
-	const uint8_t* old_off = data;
-	data += sizeof(T) * N;
+	std::array<T, N> arr;
 
-	return read<T, N>(old_off);
+	for (size_t i = 0; i < N; ++i)
+	{
+		arr[i] = seq_read<T>(data);
+	}
+
+	return arr;
 }
