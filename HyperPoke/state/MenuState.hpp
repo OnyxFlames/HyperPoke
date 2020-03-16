@@ -28,6 +28,7 @@ private:
 	tgui::Button::Ptr mMonsterEditor;
 	tgui::Button::Ptr mTextConverter;
 	tgui::Button::Ptr mRomSearch;
+	tgui::Button::Ptr mEditStarters;
 
 	tgui::Button::Ptr mBackupButton;
 	tgui::Button::Ptr mRestoreButton;

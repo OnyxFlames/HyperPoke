@@ -57,10 +57,10 @@ public:
 
 public:
 	MonsterBaseStats();
-	MonsterBaseStats(const uint8_t* data);
+	MonsterBaseStats(uint8_t* data);
 
 	static std::vector<MonsterBaseStats> load(ROM& rom);
 private:
-	void load(const uint8_t* data);
+	void load(uint8_t* data);
 };
 

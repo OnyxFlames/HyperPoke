@@ -10,6 +10,8 @@
 
 #include "../ROMViewer.hpp"
 
+#include "../Memory.hpp"
+
 MonsterEditorState::MonsterEditorState(StateStack& stack, Context context)
 	:	State(stack, context)
 	,	mGUI(*context.window)
@@ -19,6 +21,10 @@ MonsterEditorState::MonsterEditorState(StateStack& stack, Context context)
 
 	mBackground.setFillColor(BACKGROUND_COLOR);
 	mBackground.setSize(static_cast<sf::Vector2f>(context.window->getSize()));
+
+
+	auto data = context.rom->data.data();
+
 }
 
 void MonsterEditorState::draw()
@@ -80,6 +86,9 @@ void MonsterEditorState::updateGUIValues()
 		mGenderRatio->setEnabled(false);
 	}
 	mGenderRatio->setText(std::to_string(basestats.gender));
+
+	mGrowthRate->setSelectedItemByIndex(basestats.levelup_type);
+
 	mPrevSelectedIndex = mSelectedIndex;
 }
 
@@ -272,6 +281,28 @@ void MonsterEditorState::buildGUI()
 	mGenderRatio = txtgender;
 	mGUI.add(txtgender);
 
+	const char* growth_rates[]
+	{
+		"Medium Fast (1,000,000)",
+		"Erratic (600,000)",
+		"Flucuating (1,640,000)",
+		"Medium Slow (1,059,860)",
+		"Fast (800,000)",
+		"Slow (1,250,000)"
+	};
+
+	auto growth_rate_lbl = tgui::Label::create("XP Rate: ");
+	growth_rate_lbl->setPosition(lblgender->getPosition().x, lblgender->getPosition().y + growth_rate_lbl->getSize().y);
+
+	mGUI.add(growth_rate_lbl);
+
+	auto growth_rate_cbo = tgui::ComboBox::create();
+	growth_rate_cbo->setPosition(growth_rate_lbl->getPosition().x + growth_rate_lbl->getSize().x, growth_rate_lbl->getPosition().y);
+	growth_rate_cbo->setSize(120.f, 18.f);
+	mGrowthRate = growth_rate_cbo;
+	for (size_t i = 0; i < 6; ++i) growth_rate_cbo->addItem(growth_rates[i]);
+	mGUI.add(growth_rate_cbo);
+
 	auto return_btn = tgui::Button::create("Menu");
 	return_btn->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	return_btn->setPosition(0.f, window.getSize().y - return_btn->getSize().y);
@@ -283,7 +314,6 @@ void MonsterEditorState::buildGUI()
 		});
 
 	mGUI.add(return_btn);
-
 
 	auto write_changes = tgui::Button::create("Write Changes");
 	write_changes->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -360,6 +390,8 @@ void MonsterEditorState::initFunctions()
 		case MonsterGender::Genderless: stats.gender = 255; break;
 		default: printf("Invalid gender value\n");
 		}
+
+		stats.levelup_type = indexOf(mGrowthRate);
 
 		if (rv.writeMonsterStats(mSelectedIndex, stats))
 			updateGUIValues();

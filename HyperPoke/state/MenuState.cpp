@@ -143,6 +143,7 @@ void MenuState::buildGUI()
 		{
 			requestStackPush(States::StarterEditor);
 		});
+	mEditStarters = starter_editor;
 	mGUI.add(starter_editor);
 
 	auto exit_btn = tgui::Button::create("Exit Application");
@@ -231,11 +232,21 @@ void MenuState::checkButtonAvailablity()
 	{
 		mMonsterEditor->setEnabled(true);
 		mRomSearch->setEnabled(true);
+
+		if (isRSEBase(getContext().rom->getType()))
+		{
+			mEditStarters->setEnabled(true);
+		}
+		else
+		{
+			mEditStarters->setEnabled(false);
+		}
 	}
 	else
 	{
 		mMonsterEditor->setEnabled(false);
 		mRomSearch->setEnabled(false);
+		mEditStarters->setEnabled(false);
 	}
 
 }

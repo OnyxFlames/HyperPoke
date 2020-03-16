@@ -7,33 +7,34 @@
 
 #include "../Common.hpp"
 
-void MonsterBaseStats::load(const uint8_t* data)
+#include "../Memory.hpp"
+
+void MonsterBaseStats::load(uint8_t* data)
 {
-	base_HP = *data++;
-	base_attack = *data++;
-	base_defense = *data++;
-	base_speed = *data++;
-	base_spattack = *data++;
-	base_spdefense = *data++;
-	type1 = *data++;
-	type2 = *data++;
-	catch_rate = *data++;
-	base_xp_yield = *data++;
-	effort_yield.total = (*data++);
-	effort_yield.total += (*data++) << 8;
-	item1 = (*data++); item1 += (*data++ << 8);
-	item2 = (*data++); item2 += (*data++ << 8);
-	gender = *data++;
-	egg_cycles = *data++;
-	base_friendship = *data++;
-	levelup_type = *data++;
-	egg_group1 = *data++;
-	egg_group2 = *data++;
-	ability1 = *data++;
-	ability2 = *data++;
-	safarizone_rate = *data++;
-	colorflip = *data++;
-	padding_0 = ((*data++ << 8) | *data++);
+	base_HP = seq_read<uint8_t>(data);
+	base_attack = seq_read<uint8_t>(data);
+	base_defense = seq_read<uint8_t>(data);
+	base_speed = seq_read<uint8_t>(data);
+	base_spattack = seq_read<uint8_t>(data);
+	base_spdefense = seq_read<uint8_t>(data);
+	type1 = seq_read<uint8_t>(data);
+	type2 = seq_read<uint8_t>(data);
+	catch_rate = seq_read<uint8_t>(data);
+	base_xp_yield = seq_read<uint8_t>(data);
+	effort_yield.total = seq_read<uint16_t>(data);
+	item1 = seq_read<uint16_t>(data);
+	item2 = seq_read<uint16_t>(data);
+	gender = seq_read<uint8_t>(data);
+	egg_cycles = seq_read<uint8_t>(data);
+	base_friendship = seq_read<uint8_t>(data);
+	levelup_type = seq_read<uint8_t>(data);
+	egg_group1 = seq_read<uint8_t>(data);
+	egg_group2 = seq_read<uint8_t>(data);
+	ability1 = seq_read<uint8_t>(data);
+	ability2 = seq_read<uint8_t>(data);
+	safarizone_rate = seq_read<uint8_t>(data);
+	colorflip = seq_read<uint8_t>(data);
+	padding_0 = seq_read<uint16_t>(data);
 }
 
 MonsterBaseStats::MonsterBaseStats()
@@ -64,7 +65,7 @@ MonsterBaseStats::MonsterBaseStats()
 {
 }
 
-MonsterBaseStats::MonsterBaseStats(const uint8_t* data)
+MonsterBaseStats::MonsterBaseStats(uint8_t* data)
 {
 	load(data);
 }

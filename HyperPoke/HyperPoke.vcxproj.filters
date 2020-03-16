@@ -234,6 +234,9 @@
     <ClCompile Include="state\StarterEditorState.cpp">
       <Filter>Source Files\state</Filter>
     </ClCompile>
+    <ClCompile Include="Memory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -440,10 +443,16 @@
     <ClInclude Include="state\StarterEditorState.hpp">
       <Filter>Header Files\state</Filter>
     </ClInclude>
+    <ClInclude Include="Memory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="lua\Makefile">
       <Filter>Header Files\lua</Filter>
+    </None>
+    <None Include="Memory.inl">
+      <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
 </Project>

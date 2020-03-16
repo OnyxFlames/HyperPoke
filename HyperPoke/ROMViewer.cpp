@@ -104,6 +104,8 @@ const MonsterBaseStats ROMViewer::readMonsterStats(size_t index)
 	return mStats;
 }
 
+#include "Memory.hpp"
+
 bool ROMViewer::writeMonsterStats(size_t index, const MonsterBaseStats& stats)
 {
 #define STAT_INDEX ((index * MONSTER_BASESTAT_LENGTH) + offset)
@@ -116,44 +118,43 @@ bool ROMViewer::writeMonsterStats(size_t index, const MonsterBaseStats& stats)
 	if (offset == 0) return false;
 
 	auto data = mROM.data.data() + STAT_INDEX;
-
-	data[0] = stats.base_HP;
-	data[1] = stats.base_attack;
-	data[2] = stats.base_defense;
-	data[3] = stats.base_speed;
-	data[4] = stats.base_spattack;
-	data[5] = stats.base_spdefense;
 	
-	data[6] = stats.type1;
-	data[7] = stats.type2;
+	seq_write<uint8_t>(data, stats.base_HP);
+	seq_write<uint8_t>(data, stats.base_attack);
+	seq_write<uint8_t>(data, stats.base_defense);
+	seq_write<uint8_t>(data, stats.base_speed);
+	seq_write<uint8_t>(data, stats.base_spattack);
+	seq_write<uint8_t>(data, stats.base_spdefense);
 
-	data[8] = stats.catch_rate;
-	data[9] = stats.base_xp_yield;
+	seq_write<uint8_t>(data, stats.type1);
+	seq_write<uint8_t>(data, stats.type2);
 
-	data[10] = stats.effort_yield.total & 0xFF;
-	data[11] = (stats.effort_yield.total >> 8) & 0xFF;
+	seq_write<uint8_t>(data, stats.catch_rate);
+	seq_write<uint8_t>(data, stats.base_xp_yield);
 
-	data[12] = stats.item1 & 0xFF;
-	data[13] = (stats.item1 >> 8) & 0xFF;
+	seq_write<uint16_t>(data, stats.effort_yield.total);
 
-	data[14] = stats.item2 & 0xFF;
-	data[15] = (stats.item2 >> 8) & 0xFF;
+	seq_write<uint16_t>(data, stats.item1);
+	seq_write<uint16_t>(data, stats.item2);
 
-	data[16] = stats.gender;
+	seq_write<uint8_t>(data, stats.gender);
+
+	seq_write<uint8_t>(data, stats.egg_cycles);
+	seq_write<uint8_t>(data, stats.base_friendship);
+	seq_write<uint8_t>(data, stats.levelup_type);
+
 	return true;
 
-	data[17] = stats.egg_cycles;
-	data[18] = stats.base_friendship;
-	data[19] = stats.levelup_type;
-	data[20] = stats.egg_group1;
-	data[21] = stats.egg_group2;
-	data[22] = stats.ability1;
-	data[23] = stats.ability2;
-	data[24] = stats.safarizone_rate;
-	data[25] = stats.colorflip;
+	seq_write<uint8_t>(data, stats.egg_group1);
+	seq_write<uint8_t>(data, stats.egg_group2);
 
-	data[26] = stats.padding_0 & 0xFF;
-	data[27] = (stats.padding_0 >> 8) & 0xFF;
+	seq_write<uint8_t>(data, stats.ability1);
+	seq_write<uint8_t>(data, stats.ability2);
+
+	seq_write<uint8_t>(data, stats.safarizone_rate);
+	seq_write<uint8_t>(data, stats.colorflip);
+
+	seq_write<uint16_t>(data, stats.padding_0);
 
 	return true;
 }

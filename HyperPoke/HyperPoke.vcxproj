@@ -170,6 +170,7 @@
     <ClCompile Include="lua\lzio.c" />
     <ClCompile Include="LZ77.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Memory.cpp" />
     <ClCompile Include="monster\Monster.cpp" />
     <ClCompile Include="monster\MonsterBaseStats.cpp" />
     <ClCompile Include="monster\MonsterEvolutionData.cpp" />
@@ -235,6 +236,7 @@
     <ClInclude Include="lua\lvm.h" />
     <ClInclude Include="lua\lzio.h" />
     <ClInclude Include="LZ77.hpp" />
+    <ClInclude Include="Memory.hpp" />
     <ClInclude Include="monster\Monster.hpp" />
     <ClInclude Include="monster\MonsterBaseStats.hpp" />
     <ClInclude Include="monster\MonsterEvolutionData.hpp" />
@@ -264,6 +266,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="lua\Makefile" />
+    <None Include="Memory.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

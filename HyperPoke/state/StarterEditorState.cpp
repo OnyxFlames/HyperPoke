@@ -7,11 +7,17 @@ StarterEditorState::StarterEditorState(StateStack& stack, Context context)
 	: State(stack, context)
 	, mGUI(*context.window)
 {
+	mBackground.setSize(static_cast<sf::Vector2f>(context.window->getSize()));
+	mBackground.setFillColor(BACKGROUND_COLOR);
+
 	buildGUI();
 }
 
 void StarterEditorState::draw()
 {
+	sf::RenderWindow& window = *getContext().window;
+
+	window.draw(mBackground);
 	mGUI.draw();
 }
 
