@@ -237,6 +237,9 @@
     <ClCompile Include="Memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="monster\MonsterEggGroup.cpp">
+      <Filter>Source Files\monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -445,6 +448,9 @@
     </ClInclude>
     <ClInclude Include="Memory.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\MonsterEggGroup.hpp">
+      <Filter>Header Files\monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

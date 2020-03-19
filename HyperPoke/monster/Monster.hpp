@@ -6,6 +6,7 @@
 #include "MonsterMoveData.hpp"
 #include "MonsterItem.hpp"
 #include "MonsterGender.hpp"
+#include "MonsterEggGroup.hpp"
 #include <array>
 
 class Monster

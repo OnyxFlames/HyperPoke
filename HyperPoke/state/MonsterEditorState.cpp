@@ -49,7 +49,7 @@ void MonsterEditorState::updateGUIValues()
 	ROMViewer rv(*getContext().rom);
 	OffsetTable table(getContext().rom->getType());
 	uint8_t* data = getContext().rom->data.data();
-	MonsterBaseStats basestats = rv.readMonsterStats(mSelectedIndex); // (data + (mSelectedIndex * MONSTER_BASESTAT_LENGTH) + table.getBaseStatOffset());
+	MonsterBaseStats basestats = rv.readMonsterStats(mSelectedIndex);
 
 	mBaseStats[0]->setText(std::to_string(basestats.base_HP));
 	mBaseStats[1]->setText(std::to_string(basestats.base_attack));
@@ -88,6 +88,9 @@ void MonsterEditorState::updateGUIValues()
 	mGenderRatio->setText(std::to_string(basestats.gender));
 
 	mGrowthRate->setSelectedItemByIndex(basestats.levelup_type);
+
+	mEggGroup1->setSelectedItemByIndex(basestats.egg_group1);
+	mEggGroup2->setSelectedItemByIndex(basestats.egg_group2);
 
 	mPrevSelectedIndex = mSelectedIndex;
 }
@@ -239,7 +242,7 @@ void MonsterEditorState::buildGUI()
 	item1drp->setSize(125.f, 18.f);
 	item1drp->setItemsToDisplay(20);
 	for (size_t i = 0; 
-		(romType == FIRERED_US ? i < ITEM_COUNT_FRLG : i < ITEM_COUNT_RSE); ++i)
+		(isFRLGBase(romType) ? i < ITEM_COUNT_FRLG : i < ITEM_COUNT_RSE); ++i)
 		item1drp->addItem(rv.readItemName(i));
 	mItem1 = item1drp;
 	mGUI.add(item1drp);
@@ -252,7 +255,7 @@ void MonsterEditorState::buildGUI()
 	item2drp->setItemsToDisplay(20);
 
 	for (size_t i = 0; 
-		(romType == FIRERED_US ? i < ITEM_COUNT_FRLG : i < ITEM_COUNT_RSE); ++i)
+		(isFRLGBase(romType) ? i < ITEM_COUNT_FRLG : i < ITEM_COUNT_RSE); ++i)
 		item2drp->addItem(rv.readItemName(i));
 	mItem2 = item2drp;
 	mGUI.add(item2drp);
@@ -298,10 +301,33 @@ void MonsterEditorState::buildGUI()
 
 	auto growth_rate_cbo = tgui::ComboBox::create();
 	growth_rate_cbo->setPosition(growth_rate_lbl->getPosition().x + growth_rate_lbl->getSize().x, growth_rate_lbl->getPosition().y);
-	growth_rate_cbo->setSize(120.f, 18.f);
+	growth_rate_cbo->setSize(180.f, 18.f);
 	mGrowthRate = growth_rate_cbo;
 	for (size_t i = 0; i < 6; ++i) growth_rate_cbo->addItem(growth_rates[i]);
 	mGUI.add(growth_rate_cbo);
+
+	auto egg_group_lbl = tgui::Label::create("Egg Group 1: ");
+	egg_group_lbl->setPosition(growth_rate_lbl->getPosition().x, growth_rate_lbl->getPosition().y + egg_group_lbl->getSize().y);
+	mGUI.add(egg_group_lbl);
+
+	auto egg_group_lbl2 = tgui::Label::create("Egg Group 2: ");
+	egg_group_lbl2->setPosition(growth_rate_lbl->getPosition().x, growth_rate_lbl->getPosition().y + egg_group_lbl->getSize().y * 2);
+	mGUI.add(egg_group_lbl2);
+
+	auto egg_group_cbo1 = tgui::ComboBox::create();
+	egg_group_cbo1->setPosition(egg_group_lbl->getPosition().x + egg_group_lbl->getSize().x, egg_group_lbl->getPosition().y);
+	mEggGroup1 = egg_group_cbo1;
+	auto egg_group_cbo2 = tgui::ComboBox::create();
+	egg_group_cbo2->setPosition(egg_group_lbl2->getPosition().x + egg_group_lbl2->getSize().x, egg_group_lbl2->getPosition().y);
+	mEggGroup2 = egg_group_cbo2;
+	mGUI.add(egg_group_cbo1);
+	mGUI.add(egg_group_cbo2);
+
+	for (size_t i = 0; i < 16; ++i)
+	{
+		mEggGroup1->addItem(toMonsterEggGroup((uint8_t)i));
+		mEggGroup2->addItem(toMonsterEggGroup((uint8_t)i));
+	}
 
 	auto return_btn = tgui::Button::create("Menu");
 	return_btn->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -392,6 +418,8 @@ void MonsterEditorState::initFunctions()
 		}
 
 		stats.levelup_type = indexOf(mGrowthRate);
+		stats.egg_group1 = indexOf(mEggGroup1);
+		stats.egg_group2 = indexOf(mEggGroup2);
 
 		if (rv.writeMonsterStats(mSelectedIndex, stats))
 			updateGUIValues();

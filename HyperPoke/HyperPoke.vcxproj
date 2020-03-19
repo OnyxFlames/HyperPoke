@@ -173,6 +173,7 @@
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="monster\Monster.cpp" />
     <ClCompile Include="monster\MonsterBaseStats.cpp" />
+    <ClCompile Include="monster\MonsterEggGroup.cpp" />
     <ClCompile Include="monster\MonsterEvolutionData.cpp" />
     <ClCompile Include="monster\MonsterGender.cpp" />
     <ClCompile Include="monster\MonsterItem.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="Memory.hpp" />
     <ClInclude Include="monster\Monster.hpp" />
     <ClInclude Include="monster\MonsterBaseStats.hpp" />
+    <ClInclude Include="monster\MonsterEggGroup.hpp" />
     <ClInclude Include="monster\MonsterEvolutionData.hpp" />
     <ClInclude Include="monster\MonsterGender.hpp" />
     <ClInclude Include="monster\MonsterItem.hpp" />

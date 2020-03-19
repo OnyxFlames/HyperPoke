@@ -39,6 +39,8 @@ private:
 	tgui::EditBox::Ptr mGenderRatio;
 	tgui::ComboBox::Ptr mGrowthRate;
 
+	tgui::ComboBox::Ptr mEggGroup1, mEggGroup2;
+
 	sf::RectangleShape mBackground;
 };
 

@@ -143,11 +143,9 @@ bool ROMViewer::writeMonsterStats(size_t index, const MonsterBaseStats& stats)
 	seq_write<uint8_t>(data, stats.base_friendship);
 	seq_write<uint8_t>(data, stats.levelup_type);
 
-	return true;
-
 	seq_write<uint8_t>(data, stats.egg_group1);
 	seq_write<uint8_t>(data, stats.egg_group2);
-
+	return true;
 	seq_write<uint8_t>(data, stats.ability1);
 	seq_write<uint8_t>(data, stats.ability2);
 
