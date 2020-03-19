@@ -92,6 +92,8 @@ void MonsterEditorState::updateGUIValues()
 	mEggGroup1->setSelectedItemByIndex(basestats.egg_group1);
 	mEggGroup2->setSelectedItemByIndex(basestats.egg_group2);
 
+	mSafariZoneRate->setText(std::to_string(basestats.safarizone_rate));
+
 	mPrevSelectedIndex = mSelectedIndex;
 }
 
@@ -329,6 +331,17 @@ void MonsterEditorState::buildGUI()
 		mEggGroup2->addItem(toMonsterEggGroup((uint8_t)i));
 	}
 
+	auto saf_zone_ratelbl = tgui::Label::create("Safari Zone Rate: ");
+	saf_zone_ratelbl->setPosition(egg_group_lbl2->getPosition().x, egg_group_lbl2->getPosition().y + egg_group_lbl2->getSize().y + 5.f);
+	
+	mGUI.add(saf_zone_ratelbl);
+
+	auto saf_zone_rate_txt = tgui::EditBox::create();
+	saf_zone_rate_txt->setPosition(saf_zone_ratelbl->getPosition().x + saf_zone_ratelbl->getSize().x, saf_zone_ratelbl->getPosition().y);
+	saf_zone_rate_txt->setSize(EDITBOX_WIDTH, DROPDOWN_HEIGHT);
+	mSafariZoneRate = saf_zone_rate_txt;
+	mGUI.add(saf_zone_rate_txt);
+
 	auto return_btn = tgui::Button::create("Menu");
 	return_btn->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	return_btn->setPosition(0.f, window.getSize().y - return_btn->getSize().y);
@@ -420,6 +433,8 @@ void MonsterEditorState::initFunctions()
 		stats.levelup_type = indexOf(mGrowthRate);
 		stats.egg_group1 = indexOf(mEggGroup1);
 		stats.egg_group2 = indexOf(mEggGroup2);
+
+		stats.safarizone_rate = valueOf(mSafariZoneRate);
 
 		if (rv.writeMonsterStats(mSelectedIndex, stats))
 			updateGUIValues();

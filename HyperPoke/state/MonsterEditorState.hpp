@@ -40,6 +40,7 @@ private:
 	tgui::ComboBox::Ptr mGrowthRate;
 
 	tgui::ComboBox::Ptr mEggGroup1, mEggGroup2;
+	tgui::EditBox::Ptr mSafariZoneRate;
 
 	sf::RectangleShape mBackground;
 };
