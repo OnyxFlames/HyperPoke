@@ -41,6 +41,7 @@ private:
 
 	tgui::ComboBox::Ptr mEggGroup1, mEggGroup2;
 	tgui::EditBox::Ptr mSafariZoneRate;
+	tgui::ComboBox::Ptr mAbility1, mAbility2;
 
 	sf::RectangleShape mBackground;
 };

@@ -228,3 +228,40 @@ bool ROMViewer::writeItemName(size_t index, const std::wstring& name)
 
 	return true;
 }
+
+const std::wstring ROMViewer::readMonsterAbility(size_t index)
+{
+#define ABILITY_INDEX ((index * ABILITY_NAME_LENGTH) + offset)
+
+	OffsetTable table(mType);
+	const auto offset = table.getAbilityNameOffset();
+	if (offset == 0)
+		return L"";
+
+	return Text<std::wstring>::decode(&mROM.data[ABILITY_INDEX], ABILITY_NAME_LENGTH);
+}
+
+bool ROMViewer::writeMonsterAbility(size_t index, const std::wstring& name)
+{
+#define ABILITY_INDEX ((index * ABILITY_NAME_LENGTH) + offset)
+	auto bytes = Text<std::wstring>::encode(name);
+
+	if (bytes.size() > ABILITY_NAME_LENGTH)
+		return false;
+
+	if (index > ABILITY_COUNT)
+		return false;
+
+	OffsetTable table(mType);
+	const auto offset = table.getAbilityNameOffset();
+
+	auto data = mROM.data.data() + ABILITY_INDEX;
+
+	if (bytes.size() < ABILITY_NAME_LENGTH)
+		data[bytes.size()] = 0xff;
+
+	for (size_t i = 0; i < bytes.size(); ++i)
+		data[i] = bytes[i];
+
+	return true;
+}

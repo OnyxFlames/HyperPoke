@@ -94,6 +94,9 @@ void MonsterEditorState::updateGUIValues()
 
 	mSafariZoneRate->setText(std::to_string(basestats.safarizone_rate));
 
+	mAbility1->setSelectedItemByIndex(basestats.ability1);
+	mAbility2->setSelectedItemByIndex(basestats.ability2);
+
 	mPrevSelectedIndex = mSelectedIndex;
 }
 
@@ -342,6 +345,38 @@ void MonsterEditorState::buildGUI()
 	mSafariZoneRate = saf_zone_rate_txt;
 	mGUI.add(saf_zone_rate_txt);
 
+	auto ability1_lbl = tgui::Label::create("Ability 1:");
+	ability1_lbl->setPosition(saf_zone_ratelbl->getPosition().x, saf_zone_ratelbl->getPosition().y + saf_zone_ratelbl->getSize().y * 2);
+
+	mGUI.add(ability1_lbl);
+
+	auto ability2_lbl = tgui::Label::create("Ability 2:");
+	ability2_lbl->setPosition(saf_zone_ratelbl->getPosition().x, ability1_lbl->getPosition().y + ability2_lbl->getSize().y);
+
+	mGUI.add(ability2_lbl);
+
+	auto ability1_cbo = tgui::ComboBox::create();
+	ability1_cbo->setPosition(ability1_lbl->getPosition().x + ability1_lbl->getSize().x, ability1_lbl->getPosition().y);
+
+
+	auto ability2_cbo = tgui::ComboBox::create();
+	ability2_cbo->setPosition(ability1_lbl->getPosition().x + ability1_lbl->getSize().x, ability2_lbl->getPosition().y);
+
+	for (size_t i = 0; i < ABILITY_COUNT; ++i)
+	{
+		ability1_cbo->addItem(rv.readMonsterAbility(i));
+		ability2_cbo->addItem(rv.readMonsterAbility(i));
+	}
+
+	mGUI.add(ability1_cbo);
+	mGUI.add(ability2_cbo);
+
+	ability1_cbo->setItemsToDisplay(18);
+	ability2_cbo->setItemsToDisplay(18);
+
+	mAbility1 = ability1_cbo;
+	mAbility2 = ability2_cbo;
+
 	auto return_btn = tgui::Button::create("Menu");
 	return_btn->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	return_btn->setPosition(0.f, window.getSize().y - return_btn->getSize().y);
@@ -433,6 +468,9 @@ void MonsterEditorState::initFunctions()
 		stats.levelup_type = indexOf(mGrowthRate);
 		stats.egg_group1 = indexOf(mEggGroup1);
 		stats.egg_group2 = indexOf(mEggGroup2);
+
+		stats.ability1 = indexOf(mAbility1);
+		stats.ability2 = indexOf(mAbility2);
 
 		stats.safarizone_rate = valueOf(mSafariZoneRate);
 

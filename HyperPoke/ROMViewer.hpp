@@ -29,5 +29,8 @@ public:
 
 	const std::wstring readItemName(size_t index);
 	bool writeItemName(size_t index, const std::wstring& name);
+
+	const std::wstring readMonsterAbility(size_t index);
+	bool writeMonsterAbility(size_t index, const std::wstring& name);
 };
 

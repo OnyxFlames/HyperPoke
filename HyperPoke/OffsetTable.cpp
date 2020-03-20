@@ -82,3 +82,14 @@ uint32_t OffsetTable::getMonsterNormalPallet()
 	default: return 0;
 	}
 }
+
+uint32_t OffsetTable::getAbilityNameOffset()
+{
+
+	switch (mType)
+	{
+	case ROMType::FIRERED_US: return 0x24FC40;
+	default: return 0;
+	}
+
+}
