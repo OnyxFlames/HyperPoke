@@ -156,7 +156,7 @@ void luaO_arith (lua_State *L, int op, const TValue *p1, const TValue *p2,
   }
   /* could not perform raw operation; try metamethod */
   lua_assert(L != NULL);  /* should not fail when folding (compile time) */
-  luaT_trybinTM(L, p1, p2, res, cast(TMS, (op - LUA_OPADD) + TM_ADD));
+  luaT_trybinTM(L, p1, p2, res, lcast(TMS, (op - LUA_OPADD) + TM_ADD));
 }
 
 
@@ -198,7 +198,7 @@ static lua_Number lua_strx2number (const char *s, char **endptr) {
   int e = 0;  /* exponent correction */
   int neg;  /* 1 if number is negative */
   int hasdot = 0;  /* true after seen a dot */
-  *endptr = cast(char *, s);  /* nothing is valid yet */
+  *endptr = lcast(char *, s);  /* nothing is valid yet */
   while (lisspace(cast_uchar(*s))) s++;  /* skip initial spaces */
   neg = isneg(&s);  /* check signal */
   if (!(*s == '0' && (*(s + 1) == 'x' || *(s + 1) == 'X')))  /* check '0x' */
@@ -220,7 +220,7 @@ static lua_Number lua_strx2number (const char *s, char **endptr) {
   }
   if (nosigdig + sigdig == 0)  /* no digits? */
     return 0.0;  /* invalid format */
-  *endptr = cast(char *, s);  /* valid up to here */
+  *endptr = lcast(char *, s);  /* valid up to here */
   e *= 4;  /* each digit multiplies/divides value by 2^4 */
   if (*s == 'p' || *s == 'P') {  /* exponent part? */
     int exp1 = 0;  /* exponent value */
@@ -233,7 +233,7 @@ static lua_Number lua_strx2number (const char *s, char **endptr) {
       exp1 = exp1 * 10 + *(s++) - '0';
     if (neg1) exp1 = -exp1;
     e += exp1;
-    *endptr = cast(char *, s);  /* valid up to here */
+    *endptr = lcast(char *, s);  /* valid up to here */
   }
   if (neg) r = -r;
   return l_mathop(ldexp)(r, e);
@@ -293,7 +293,7 @@ static const char *l_str2d (const char *s, lua_Number *result) {
 }
 
 
-#define MAXBY10		cast(lua_Unsigned, LUA_MAXINTEGER / 10)
+#define MAXBY10		lcast(lua_Unsigned, LUA_MAXINTEGER / 10)
 #define MAXLASTD	cast_int(LUA_MAXINTEGER % 10)
 
 static const char *l_str2int (const char *s, lua_Integer *result) {
@@ -347,15 +347,15 @@ int luaO_utf8esc (char *buff, unsigned long x) {
   int n = 1;  /* number of bytes put in buffer (backwards) */
   lua_assert(x <= 0x10FFFF);
   if (x < 0x80)  /* ascii? */
-    buff[UTF8BUFFSZ - 1] = cast(char, x);
+    buff[UTF8BUFFSZ - 1] = lcast(char, x);
   else {  /* need continuation bytes */
     unsigned int mfb = 0x3f;  /* maximum that fits in first byte */
     do {  /* add continuation bytes */
-      buff[UTF8BUFFSZ - (n++)] = cast(char, 0x80 | (x & 0x3f));
+      buff[UTF8BUFFSZ - (n++)] = lcast(char, 0x80 | (x & 0x3f));
       x >>= 6;  /* remove added bits */
       mfb >>= 1;  /* now there is one less bit available in first byte */
     } while (x > mfb);  /* still needs continuation byte? */
-    buff[UTF8BUFFSZ - n] = cast(char, (~mfb << 1) | x);  /* add first byte */
+    buff[UTF8BUFFSZ - n] = lcast(char, (~mfb << 1) | x);  /* add first byte */
   }
   return n;
 }
@@ -411,7 +411,7 @@ const char *luaO_pushvfstring (lua_State *L, const char *fmt, va_list argp) {
         break;
       }
       case 'c': {  /* an 'int' as a character */
-        char buff = cast(char, va_arg(argp, int));
+        char buff = lcast(char, va_arg(argp, int));
         if (lisprint(cast_uchar(buff)))
           pushstr(L, &buff, 1);
         else  /* non-printable character; print its code */
@@ -423,7 +423,7 @@ const char *luaO_pushvfstring (lua_State *L, const char *fmt, va_list argp) {
         goto top2str;
       }
       case 'I': {  /* a 'lua_Integer' */
-        setivalue(L->top, cast(lua_Integer, va_arg(argp, l_uacInt)));
+        setivalue(L->top, lcast(lua_Integer, va_arg(argp, l_uacInt)));
         goto top2str;
       }
       case 'f': {  /* a 'lua_Number' */
@@ -442,7 +442,7 @@ const char *luaO_pushvfstring (lua_State *L, const char *fmt, va_list argp) {
       }
       case 'U': {  /* an 'int' as a UTF-8 sequence */
         char buff[UTF8BUFFSZ];
-        int l = luaO_utf8esc(buff, cast(long, va_arg(argp, long)));
+        int l = luaO_utf8esc(buff, lcast(long, va_arg(argp, long)));
         pushstr(L, buff + UTF8BUFFSZ - l, l);
         break;
       }

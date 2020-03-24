@@ -176,7 +176,7 @@ typedef struct lua_TValue {
 #define bvalue(o)	check_exp(ttisboolean(o), val_(o).b)
 #define thvalue(o)	check_exp(ttisthread(o), gco2th(val_(o).gc))
 /* a dead value may get the 'gc' field, but cannot access its contents */
-#define deadvalue(o)	check_exp(ttisdeadkey(o), cast(void *, val_(o).gc))
+#define deadvalue(o)	check_exp(ttisdeadkey(o), lcast(void *, val_(o).gc))
 
 #define l_isfalse(o)	(ttisnil(o) || (ttisboolean(o) && bvalue(o) == 0))
 
@@ -326,7 +326,7 @@ typedef union UTString {
 ** (Access to 'extra' ensures that value is really a 'TString'.)
 */
 #define getstr(ts)  \
-  check_exp(sizeof((ts)->extra), cast(char *, (ts)) + sizeof(UTString))
+  check_exp(sizeof((ts)->extra), lcast(char *, (ts)) + sizeof(UTString))
 
 
 /* get the actual string (array of bytes) from a Lua value */
@@ -366,7 +366,7 @@ typedef union UUdata {
 ** (Access to 'ttuv_' ensures that value is really a 'Udata'.)
 */
 #define getudatamem(u)  \
-  check_exp(sizeof((u)->ttuv_), (cast(char*, (u)) + sizeof(UUdata)))
+  check_exp(sizeof((u)->ttuv_), (lcast(char*, (u)) + sizeof(UUdata)))
 
 #define setuservalue(L,u,o) \
 	{ const TValue *io=(o); Udata *iu = (u); \
@@ -512,7 +512,7 @@ typedef struct Table {
 ** 'module' operation for hashing (size is always a power of 2)
 */
 #define lmod(s,size) \
-	(check_exp((size&(size-1))==0, (cast(int, (s) & ((size)-1)))))
+	(check_exp((size&(size-1))==0, (lcast(int, (s) & ((size)-1)))))
 
 
 #define twoto(x)	(1<<(x))

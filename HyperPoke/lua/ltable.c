@@ -103,8 +103,8 @@ static int l_hashfloat (lua_Number n) {
     return 0;
   }
   else {  /* normal case */
-    unsigned int u = cast(unsigned int, i) + cast(unsigned int, ni);
-    return cast_int(u <= cast(unsigned int, INT_MAX) ? u : ~u);
+    unsigned int u = lcast(unsigned int, i) + lcast(unsigned int, ni);
+    return cast_int(u <= lcast(unsigned int, INT_MAX) ? u : ~u);
   }
 }
 #endif
@@ -145,7 +145,7 @@ static unsigned int arrayindex (const TValue *key) {
   if (ttisinteger(key)) {
     lua_Integer k = ivalue(key);
     if (0 < k && (lua_Unsigned)k <= MAXASIZE)
-      return cast(unsigned int, k);  /* 'key' is an appropriate array index */
+      return lcast(unsigned int, k);  /* 'key' is an appropriate array index */
   }
   return 0;  /* 'key' did not match some condition */
 }
@@ -309,7 +309,7 @@ static void setarrayvector (lua_State *L, Table *t, unsigned int size) {
 
 static void setnodevector (lua_State *L, Table *t, unsigned int size) {
   if (size == 0) {  /* no elements to hash part? */
-    t->node = cast(Node *, dummynode);  /* use common 'dummynode' */
+    t->node = lcast(Node *, dummynode);  /* use common 'dummynode' */
     t->lsizenode = 0;
     t->lastfree = NULL;  /* signal that it is using dummy node */
   }
@@ -339,7 +339,7 @@ typedef struct {
 
 
 static void auxsetnode (lua_State *L, void *ud) {
-  AuxsetnodeT *asn = cast(AuxsetnodeT *, ud);
+  AuxsetnodeT *asn = lcast(AuxsetnodeT *, ud);
   setnodevector(L, asn->t, asn->nhsize);
 }
 
@@ -380,7 +380,7 @@ void luaH_resize (lua_State *L, Table *t, unsigned int nasize,
     }
   }
   if (oldhsize > 0)  /* not the dummy node? */
-    luaM_freearray(L, nold, cast(size_t, oldhsize)); /* free old hash */
+    luaM_freearray(L, nold, lcast(size_t, oldhsize)); /* free old hash */
 }
 
 
@@ -432,7 +432,7 @@ Table *luaH_new (lua_State *L) {
 
 void luaH_free (lua_State *L, Table *t) {
   if (!isdummy(t))
-    luaM_freearray(L, t->node, cast(size_t, sizenode(t)));
+    luaM_freearray(L, t->node, lcast(size_t, sizenode(t)));
   luaM_freearray(L, t->array, t->sizearray);
   luaM_free(L, t);
 }
@@ -577,7 +577,7 @@ const TValue *luaH_getstr (Table *t, TString *key) {
     return luaH_getshortstr(t, key);
   else {  /* for long strings, use generic case */
     TValue ko;
-    setsvalue(cast(lua_State *, NULL), &ko, key);
+    setsvalue(lcast(lua_State *, NULL), &ko, key);
     return getgeneric(t, &ko);
   }
 }
@@ -610,7 +610,7 @@ const TValue *luaH_get (Table *t, const TValue *key) {
 TValue *luaH_set (lua_State *L, Table *t, const TValue *key) {
   const TValue *p = luaH_get(t, key);
   if (p != luaO_nilobject)
-    return cast(TValue *, p);
+    return lcast(TValue *, p);
   else return luaH_newkey(L, t, key);
 }
 
@@ -619,7 +619,7 @@ void luaH_setint (lua_State *L, Table *t, lua_Integer key, TValue *value) {
   const TValue *p = luaH_getint(t, key);
   TValue *cell;
   if (p != luaO_nilobject)
-    cell = cast(TValue *, p);
+    cell = lcast(TValue *, p);
   else {
     TValue k;
     setivalue(&k, key);

@@ -470,7 +470,7 @@ int luaK_stringK (FuncState *fs, TString *s) {
 */
 int luaK_intK (FuncState *fs, lua_Integer n) {
   TValue k, o;
-  setpvalue(&k, cast(void*, cast(size_t, n)));
+  setpvalue(&k, lcast(void*, lcast(size_t, n)));
   setivalue(&o, n);
   return addk(fs, &k, &o);
 }
@@ -1046,12 +1046,12 @@ static void codecomp (FuncState *fs, BinOpr opr, expdesc *e1, expdesc *e2) {
     }
     case OPR_GT: case OPR_GE: {
       /* '(a > b)' ==> '(b < a)';  '(a >= b)' ==> '(b <= a)' */
-      OpCode op = cast(OpCode, (opr - OPR_NE) + OP_EQ);
+      OpCode op = lcast(OpCode, (opr - OPR_NE) + OP_EQ);
       e1->u.info = condjump(fs, op, 1, rk2, rk1);  /* invert operands */
       break;
     }
     default: {  /* '==', '<', '<=' use their own opcodes */
-      OpCode op = cast(OpCode, (opr - OPR_EQ) + OP_EQ);
+      OpCode op = lcast(OpCode, (opr - OPR_EQ) + OP_EQ);
       e1->u.info = condjump(fs, op, 1, rk1, rk2);
       break;
     }
@@ -1071,7 +1071,7 @@ void luaK_prefix (FuncState *fs, UnOpr op, expdesc *e, int line) {
         break;
       /* FALLTHROUGH */
     case OPR_LEN:
-      codeunexpval(fs, cast(OpCode, op + OP_UNM), e, line);
+      codeunexpval(fs, lcast(OpCode, op + OP_UNM), e, line);
       break;
     case OPR_NOT: codenot(fs, e); break;
     default: lua_assert(0);
@@ -1158,7 +1158,7 @@ void luaK_posfix (FuncState *fs, BinOpr op,
     case OPR_BAND: case OPR_BOR: case OPR_BXOR:
     case OPR_SHL: case OPR_SHR: {
       if (!constfolding(fs, op + LUA_OPADD, e1, e2))
-        codebinexpval(fs, cast(OpCode, op + OP_ADD), e1, e2, line);
+        codebinexpval(fs, lcast(OpCode, op + OP_ADD), e1, e2, line);
       break;
     }
     case OPR_EQ: case OPR_LT: case OPR_LE:

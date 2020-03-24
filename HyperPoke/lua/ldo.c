@@ -617,7 +617,7 @@ static int resume_error (lua_State *L, const char *msg, int narg) {
 ** coroutine.
 */
 static void resume (lua_State *L, void *ud) {
-  int n = *(cast(int*, ud));  /* number of arguments */
+  int n = *(lcast(int*, ud));  /* number of arguments */
   StkId firstArg = L->top - n;  /* first argument */
   CallInfo *ci = L->ci;
   if (L->status == LUA_OK) {  /* starting a coroutine? */
@@ -765,7 +765,7 @@ static void checkmode (lua_State *L, const char *mode, const char *x) {
 
 static void f_parser (lua_State *L, void *ud) {
   LClosure *cl;
-  struct SParser *p = cast(struct SParser *, ud);
+  struct SParser *p = lcast(struct SParser *, ud);
   int c = zgetc(p->z);  /* read first character */
   if (c == LUA_SIGNATURE[0]) {
     checkmode(L, p->mode, "binary");

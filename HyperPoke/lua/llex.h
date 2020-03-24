@@ -37,7 +37,7 @@ enum RESERVED {
 };
 
 /* number of reserved words */
-#define NUM_RESERVED	(cast(int, TK_WHILE-FIRST_RESERVED+1))
+#define NUM_RESERVED	(lcast(int, TK_WHILE-FIRST_RESERVED+1))
 
 
 typedef union {

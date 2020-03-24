@@ -37,7 +37,7 @@ const char lua_ident[] =
 
 
 /* value at a non-valid index */
-#define NONVALIDVALUE		cast(TValue *, luaO_nilobject)
+#define NONVALIDVALUE		lcast(TValue *, luaO_nilobject)
 
 /* corresponding test */
 #define isvalid(o)	((o) != luaO_nilobject)
@@ -432,7 +432,7 @@ LUA_API const void *lua_topointer (lua_State *L, int idx) {
     case LUA_TTABLE: return hvalue(o);
     case LUA_TLCL: return clLvalue(o);
     case LUA_TCCL: return clCvalue(o);
-    case LUA_TLCF: return cast(void *, cast(size_t, fvalue(o)));
+    case LUA_TLCF: return lcast(void *, lcast(size_t, fvalue(o)));
     case LUA_TTHREAD: return thvalue(o);
     case LUA_TUSERDATA: return getudatamem(uvalue(o));
     case LUA_TLIGHTUSERDATA: return pvalue(o);
@@ -673,7 +673,7 @@ LUA_API int lua_rawgetp (lua_State *L, int idx, const void *p) {
   lua_lock(L);
   t = index2addr(L, idx);
   api_check(L, ttistable(t), "table expected");
-  setpvalue(&k, cast(void *, p));
+  setpvalue(&k, lcast(void *, p));
   setobj2s(L, L->top, luaH_get(hvalue(t), &k));
   api_incr_top(L);
   lua_unlock(L);
@@ -834,7 +834,7 @@ LUA_API void lua_rawsetp (lua_State *L, int idx, const void *p) {
   api_checknelems(L, 1);
   o = index2addr(L, idx);
   api_check(L, ttistable(o), "table expected");
-  setpvalue(&k, cast(void *, p));
+  setpvalue(&k, lcast(void *, p));
   slot = luaH_set(L, hvalue(o), &k);
   setobj2t(L, slot, L->top - 1);
   luaC_barrierback(L, hvalue(o), L->top - 1);
@@ -939,7 +939,7 @@ struct CallS {  /* data to 'f_call' */
 
 
 static void f_call (lua_State *L, void *ud) {
-  struct CallS *c = cast(struct CallS *, ud);
+  struct CallS *c = lcast(struct CallS *, ud);
   luaD_callnoyield(L, c->func, c->nresults);
 }
 
@@ -1074,7 +1074,7 @@ LUA_API int lua_gc (lua_State *L, int what, int data) {
         luaC_step(L);
       }
       else {  /* add 'data' to total debt */
-        debt = cast(l_mem, data) * 1024 + g->GCdebt;
+        debt = lcast(l_mem, data) * 1024 + g->GCdebt;
         luaE_setdebt(g, debt);
         luaC_checkGC(L);
       }

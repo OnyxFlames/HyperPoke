@@ -108,13 +108,13 @@ typedef LUAI_UACINT l_uacInt;
 
 
 /* type casts (a macro highlights casts in the code) */
-#define cast(t, exp)	((t)(exp))
+#define lcast(t, exp)	((t)(exp))
 
-#define cast_void(i)	cast(void, (i))
-#define cast_byte(i)	cast(lu_byte, (i))
-#define cast_num(i)	cast(lua_Number, (i))
-#define cast_int(i)	cast(int, (i))
-#define cast_uchar(i)	cast(unsigned char, (i))
+#define cast_void(i)	lcast(void, (i))
+#define cast_byte(i)	lcast(lu_byte, (i))
+#define cast_num(i)	lcast(lua_Number, (i))
+#define cast_int(i)	lcast(int, (i))
+#define cast_uchar(i)	lcast(unsigned char, (i))
 
 
 /* cast a signed lua_Integer to lua_Unsigned */

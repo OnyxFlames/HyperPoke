@@ -75,10 +75,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SFML\SFML-2.5.1-32bit\include;C:\SFML\TGUI-0.8.6-32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\SFML\SFML-2.5.1-32bit\lib;C:\SFML\TGUI-0.8.6-32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -130,6 +131,7 @@
     <ClCompile Include="ByteArray.cpp" />
     <ClCompile Include="ColourPalette.cpp" />
     <ClCompile Include="FilePrompt.cpp" />
+    <ClCompile Include="GUIBuilder.cpp" />
     <ClCompile Include="imgui\imgui-SFML.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -201,6 +203,7 @@
     <ClInclude Include="Common.hpp" />
     <ClInclude Include="FilePrompt.hpp" />
     <ClInclude Include="GUI.hpp" />
+    <ClInclude Include="GUIBuilder.hpp" />
     <ClInclude Include="imgui\imconfig-SFML.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui-SFML.h" />

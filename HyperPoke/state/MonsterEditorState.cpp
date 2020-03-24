@@ -368,11 +368,11 @@ void MonsterEditorState::buildGUI()
 		ability2_cbo->addItem(rv.readMonsterAbility(i));
 	}
 
-	mGUI.add(ability1_cbo);
-	mGUI.add(ability2_cbo);
-
 	ability1_cbo->setItemsToDisplay(18);
 	ability2_cbo->setItemsToDisplay(18);
+
+	mGUI.add(ability1_cbo);
+	mGUI.add(ability2_cbo);
 
 	mAbility1 = ability1_cbo;
 	mAbility2 = ability2_cbo;

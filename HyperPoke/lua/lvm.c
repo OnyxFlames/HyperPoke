@@ -213,7 +213,7 @@ void luaV_finishset (lua_State *L, const TValue *t, TValue *key,
         if (slot == luaO_nilobject)  /* no previous entry? */
           slot = luaH_newkey(L, h, key);  /* create one */
         /* no metamethod and (now) there is an entry with given key */
-        setobj2t(L, cast(TValue *, slot), val);  /* set its new value */
+        setobj2t(L, lcast(TValue *, slot), val);  /* set its new value */
         invalidateTMcache(h);
         luaC_barrierback(L, h, val);
         return;
@@ -284,7 +284,7 @@ static int LTintfloat (lua_Integer i, lua_Number f) {
     if (f >= -cast_num(LUA_MININTEGER))  /* -minint == maxint + 1 */
       return 1;  /* f >= maxint + 1 > i */
     else if (f > cast_num(LUA_MININTEGER))  /* minint < f <= maxint ? */
-      return (i < cast(lua_Integer, f));  /* compare them as integers */
+      return (i < lcast(lua_Integer, f));  /* compare them as integers */
     else  /* f <= minint <= i (or 'f' is NaN)  -->  not(i < f) */
       return 0;
   }
@@ -303,7 +303,7 @@ static int LEintfloat (lua_Integer i, lua_Number f) {
     if (f >= -cast_num(LUA_MININTEGER))  /* -minint == maxint + 1 */
       return 1;  /* f >= maxint + 1 > i */
     else if (f >= cast_num(LUA_MININTEGER))  /* minint <= f <= maxint ? */
-      return (i <= cast(lua_Integer, f));  /* compare them as integers */
+      return (i <= lcast(lua_Integer, f));  /* compare them as integers */
     else  /* f < minint <= i (or 'f' is NaN)  -->  not(i <= f) */
       return 0;
   }
